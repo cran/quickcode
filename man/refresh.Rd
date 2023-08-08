@@ -4,7 +4,7 @@
 \alias{refresh}
 \title{Clear environment, clear console, set work directory and load files}
 \usage{
-refresh(setwd = NULL, source = c(), load = c())
+refresh(setwd = NULL, source = c(), load = c(), clearPkgs = FALSE)
 }
 \arguments{
 \item{setwd}{OPTIONAL. set working directory}
@@ -12,6 +12,8 @@ refresh(setwd = NULL, source = c(), load = c())
 \item{source}{OPTIONAL. source in file(s)}
 
 \item{load}{OPTIONAL. load in Rdata file(s)}
+
+\item{clearPkgs}{clear previously loaded packages}
 }
 \value{
 cleared environment and set directory

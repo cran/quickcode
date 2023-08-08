@@ -4,12 +4,14 @@
 \alias{data_shuffle}
 \title{Shuffle a data frame just like shuffle in php}
 \usage{
-data_shuffle(., which = c("rows", "cols"))
+data_shuffle(., which = c("rows", "cols"), seed = NULL)
 }
 \arguments{
 \item{.}{data to shuffle as data frame}
 
 \item{which}{what to shuffle, rows or columns}
+
+\item{seed}{apply seed if indicated for reproducibility}
 }
 \value{
 shuffled data frame of items store to the data frame name
@@ -19,6 +21,25 @@ Shorthand to shuffle a data frame and save
 }
 \examples{
 df1<-data.frame(ID=46:55,PK=c(rep("Treatment",5),rep("Placebo",5)))
+
+#illustrate basic functionality
 data_shuffle(df1)
+df1 #shuffle and resaved to variable
+
+data.f2<-df1
+data_shuffle(data.f2)
+data.f2 #first output
+
+data.f2<-df1
+data_shuffle(data.f2)
+data.f2 # different output from first output top
+
+data.f2<-df1
+data_shuffle(data.f2,seed = 344L)
+data.f2 #second output
+
+data.f2<-df1
+data_shuffle(data.f2,seed = 344L)
+data.f2 #the same output as second output top
 
 }

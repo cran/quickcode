@@ -5,12 +5,14 @@
 #' @param setwd OPTIONAL. set working directory
 #' @param source OPTIONAL. source in file(s)
 #' @param load OPTIONAL. load in Rdata file(s)
+#' @param clearPkgs Clear previous loaded packages, TRUE or FALSE
 #' @return cleared environment and set directory
 #'
 #' @examples
 #' \donttest{
 #' quickcode::clean()
-#' quickcode::clean(setwd = "/home/")
+#' quickcode::clean(clearPkgs = TRUE) #clear all previously loaded packages
+#' quickcode::clean(setwd = "/home/") #clear env and set working directory
 #' quickcode::clean(source = c("/home/file1.R","file2"))
 #' quickcode::clean(setwd = "/home/",source = c("file1","file2))
 #' quickcode::clean(setwd = "/home/",source="file1.R",load="obi.RData")
@@ -21,30 +23,52 @@
 
 
 
-clean <- function(setwd = NULL, source = c(), load = c()) {
+clean <- function(setwd = NULL, source = c(), load = c(), clearPkgs = FALSE) {
   # clear console, clean garbage and shut devices
-  erase()
-  rm(list = setdiff(ls(envir = parent.frame()), c("setwd", "source", "load")), envir = parent.frame())
-  graphics.off()
-  gc()
+  erase() #clear console
+  rm(list = setdiff(ls(envir = parent.frame()), c("setwd", "source", "load", "clearPkgs")), envir = parent.frame())
+  graphics.off() #graphics off
+  closeAllConnections() #close any open connections
+  gc() #garbage cleanup to free memory
 
-  # load quickcode if not loaded
-  if ("quickcode" %nin% (.packages())) library(quickcode, quietly = TRUE)
 
   # set directory if it exists
+  prevwd <- getwd()
+  #on.exit(setwd(prevwd))
+
   if (not.null(setwd)) {
     if (dir.exists(setwd)) {
-      prevwd <- getwd()
-      on.exit(setwd(prevwd))
       setwd(setwd)
     }
   }
+
+  # remove previous loaded packages
+  if (clearPkgs) {
+    deftPkg <- c("base", "quickcode", getOption("defaultPackages"))
+    for (i in grep("package:", search(), value = TRUE)) {
+      curr <- strsplit(i, ":")[[1]][2]
+      if (curr %nin% deftPkg){
+        tryCatch({
+          detach(name = i, character.only = TRUE, force = TRUE)
+        }, warning = function(w) {},
+        error = function(e) {},
+        finally = {})
+
+      }
+    }
+  }
+
+  # load quickcode if not loaded
+  if ("quickcode" %nin% (.packages()))
+    library(quickcode, quietly = TRUE)
+
   # source in any required files
   if (length(source)) {
     for (sourced in source) {
       if (file.exists(sourced)) source(sourced)
     }
   }
+
   # load in any required data
   if (length(load)) {
     for (loaded in load) {
@@ -65,6 +89,8 @@ clean <- function(setwd = NULL, source = c(), load = c()) {
 #' 5 %nin% c(1:10) #FALSE
 #' 5 %nin% c(11:20) #TRUE
 #'
+#' x = "a"
+#' if(x %nin% letters) x
 #' @export
 
 `%nin%` <- function(x, table) {
@@ -97,7 +123,7 @@ not.numeric <- function(x) !is.numeric(x)
 #' @examples
 #' not.null("") # TRUE
 #' not.null(NULL) # FALSE
-#' if(not.null(45)) message("yes") # yes
+#' if(not.null(45)) message("something") # yes
 #'
 #' @export
 
@@ -188,6 +214,26 @@ not.environment <- function(x) !is.environment(x)
 #' @export
 
 not.data <- function(x) !is.data.frame(x)
+
+
+
+#' Not logical
+#'
+#' Check if entry is a logical object
+#'
+#' @param x vector entry
+#' @return a boolean value to indicate if entry is logical
+#' @examples
+#' test.env <- TRUE
+#' test.notenv <- 0
+#' not.logical(test.env) # FALSE
+#' not.logical(test.notenv) # TRUE
+#' if(not.logical(test.notenv)) message("yes") # yes
+#'
+#' @export
+
+not.logical <- function(x) !is.logical(x)
+
 
 
 #' Load specific R libraries and clear environment
@@ -285,11 +331,11 @@ cv.gm <- function(num, na.rm = TRUE, pct = TRUE, round = 2) {
 }
 
 
-#' Calculate elements to a vector like array_push in php
+#' Add elements to a vector like array_push in php
 #'
 #' Shorthand to add elements to a vector and save as the same name
 #'
-#' @param . first vecotr
+#' @param . first list
 #' @param add vector to add
 #' @return vector combining fist and second vector, but have name set to the first
 #' @examples
@@ -303,6 +349,47 @@ vector_push <- function(., add) {
   if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
   assign(as.character(..), c(get(as.character(..), envir = parent.frame()), add), envir = parent.frame())
 }
+
+
+#' Add elements to a list like array_push in php
+#'
+#' Shorthand to add elements to a vector and save as the same name
+#'
+#' @param . first list
+#' @param add list to add
+#' @return vector combining fist and second vector, but have name set to the first
+#' @examples
+#' num1 <- list(sample(330:400,10))
+#' num2 <-list("rpkg.net")
+#' list_push(num1, add= num2)
+#' @export
+#'
+list_push <- function(., add) {
+  .. <- substitute(.)
+  if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
+  assign(as.character(..), list(get(as.character(..), envir = parent.frame()), add), envir = parent.frame())
+}
+
+
+#' Increment vector by value
+#'
+#' Increment the content of a vector and resave as the vector
+#'
+#' @param . vector of number(s)
+#' @param add number to add
+#' @return vector combining fist and second vector, but have name set to the first
+#' @examples
+#' num1 <- sample(330:400,10)
+#' inc(num1)
+#' inc(num1, add= 5)
+#' @export
+#'
+inc <- function(., add = 1) {
+  .. <- substitute(.)
+  if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
+  assign(as.character(..), (get(as.character(..), envir = parent.frame()) + add), envir = parent.frame())
+}
+
 
 
 #' Calculate data to another data like array_push in php
@@ -348,22 +435,45 @@ data_push <- function(., add, which = c("rows", "cols")) {
 #' @param . vector to shuffle
 #' @param replace replace selected value
 #' @param prob probability of occurrence
+#' @param seed apply seed if indicated for reproducibility
 #' @return shuffled vector of items store to the vector name
 #'
 #' @examples
 #' v1<-c(3,45,23,3,2,4,1)
-#' vector_shuffle(v1)
 #'
+#'
+#' #demonstrate vector_shuffle
+#' vector_shuffle(v1)
+#' v1 # show outputs
+#'
+#' #demonstrate reproducibility in shuffle with seed
+#' v0<-v1
+#' vector_shuffle(v0)
+#' v0 #first output
+#'
+#' v0<-v1
+#' vector_shuffle(v0)
+#' v0 # different output from first output top
+#'
+#' v0<-v1
+#' vector_shuffle(v0,seed = 232L)
+#' v0 #second output
+#'
+#' v0<-v1
+#' vector_shuffle(v0,seed = 232L)
+#' v0 #the same output as second output top
 #' @export
 #'
 
-vector_shuffle <- function(., replace = FALSE, prob = NULL) {
+vector_shuffle <- function(., replace = FALSE, prob = NULL, seed = NULL) {
   if(not.vector(.)) stop("The first element must be a vector")
   .. <- substitute(.)
 
   if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
 
   val <- get(as.character(..), envir = parent.frame())
+
+  if(not.null(seed))set.seed(seed)
 
   assign(as.character(..), sample(val, length(val), replace = replace, prob = prob), envir = parent.frame())
 }
@@ -376,16 +486,36 @@ vector_shuffle <- function(., replace = FALSE, prob = NULL) {
 #'
 #' @param . data to shuffle as data frame
 #' @param which what to shuffle, rows or columns
+#' @param seed apply seed if indicated for reproducibility
 #' @return shuffled data frame of items store to the data frame name
 #'
 #' @examples
 #' df1<-data.frame(ID=46:55,PK=c(rep("Treatment",5),rep("Placebo",5)))
+#'
+#' #illustrate basic functionality
 #' data_shuffle(df1)
+#' df1 #shuffle and resaved to variable
+#'
+#' data.f2<-df1
+#' data_shuffle(data.f2)
+#' data.f2 #first output
+#'
+#' data.f2<-df1
+#' data_shuffle(data.f2)
+#' data.f2 # different output from first output top
+#'
+#' data.f2<-df1
+#' data_shuffle(data.f2,seed = 344L)
+#' data.f2 #second output
+#'
+#' data.f2<-df1
+#' data_shuffle(data.f2,seed = 344L)
+#' data.f2 #the same output as second output top
 #'
 #' @export
 #'
 
-data_shuffle <- function(., which = c("rows", "cols")) {
+data_shuffle <- function(., which = c("rows", "cols"), seed = NULL) {
   which <- match.arg(which)
 
   .. <- substitute(.)
@@ -393,6 +523,8 @@ data_shuffle <- function(., which = c("rows", "cols")) {
   if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
 
   data <- as.data.frame(get(as.character(..), envir = parent.frame()))
+
+  if(not.null(seed))set.seed(seed)
 
     switch(which,
       "rows" = {
@@ -416,6 +548,7 @@ data_shuffle <- function(., which = c("rows", "cols")) {
 #' @param setwd OPTIONAL. set working directory
 #' @param source OPTIONAL. source in file(s)
 #' @param load OPTIONAL. load in Rdata file(s)
+#' @param clearPkgs clear previously loaded packages
 #' @return cleared environment and set directory
 #' @examples
 #' \donttest{
@@ -471,7 +604,17 @@ add.header <- function() {
 ############################################################################
 #  Document Path: ", rstudioapi::getActiveDocumentContext()$path, "
 #
-#  Written by USERNAME on ", Sys.Date(), "
+#  Author:
+#
+#  Date: ", Sys.Date(), "
+#
+#  Title:
+#
+#  Description:
+#
+#  Required Files:
+#
+#  Exported Files:
 #
 #  R Version: ", version$version.string, "
 #
@@ -494,11 +637,16 @@ add.header <- function() {
 
 add.snippet.clear <- function() {
   insertInText(paste0("
-# clear console and set working directory
-# automatically load quickcode library
-quickcode::clean(
-  setwd = 'ADDPATH'
+# script header
+quickcode::libraryAll(
+  ...
 )
+quickcode::clean(
+  setwd = '...'
+)
+
+# script body
+
 
 # session information
   sessionInfo()
@@ -522,15 +670,24 @@ quickcode::clean(
 header.rmd <- function() {
   insertInText(paste0("
 <!---
--------------------------------------------------------------
 
 Document Path: ", rstudioapi::getActiveDocumentContext()$path, "
 
-Written by USERNAME on ", Sys.Date(), "
+Author:
+
+Date: ", Sys.Date(), "
+
+Title:
+
+Description:
+
+Required Files:
+
+Exported Files:
 
 R Version: ", version$version.string, "
 
--------------------------------------------------------------
+
 --->"))
 }
 
@@ -542,6 +699,7 @@ R Version: ", version$version.string, "
 #' @param .dt data frame to re-sample
 #' @param col column to uniquely re-sample
 #' @param n number of rows to return
+#' @param seed unique numeric value for reproducibility
 #' @return data frame containing re-sampled rows from an original data frame
 #'
 #' @examples
@@ -551,14 +709,200 @@ R Version: ", version$version.string, "
 #' @export
 #'
 
-sample_by_column <- function(.dt, col, n) {
+sample_by_column <- function(.dt, col, n, seed = NULL) {
+  if(not.null(seed))set.seed(seed)
   if(not.data(.dt)) stop("First element must be a data frame.")
   .dt[.dt[, as.character(substitute(col))] %in% sample(unique(.dt[, as.character(substitute(col))]), n),]
 }
 
 
+#' Add index  keys to a vector
+#'
+#' Index a vector and convert to a list of objects
+#'
+#' @param vector vector to transform
+#' @return a transformed list containing keys along with vector values
+#' @examples
+#' #ex1 simple conversion of a vector
+#' rti2 <- c("rpkg","obinna", "obianom")
+#' add_key(rti2)
+#' rti2
+#'
+#' #ex2 add keys to a vector content for use in downstream processes
+#' ver1 <- c("Test 1","Test 2","Test 3")
+#' add_key(ver1)
+#'
+#' for(i in ver1){
+#'   message(sprintf("%s is the key for this %s", i$key, i$value))
+#' }
+#'
+#' @export
+#'
+add_key <- function(vector){
+  . = list()
+  iky = 1
+  for(i in vector){
+    .[[length(.)+1]] <- list(key = iky, value = i)
+    inc(iky)
+  }
+  #resave to vector name
+  .. <- substitute(vector)
+  assign(as.character(..), ., envir = parent.frame())
+}
 
-##Next version to-do list
+
+#' Duplicate a file and global replace
+#'
+#' Shorthand to return a re-sample number of rows in a data frame by unique column
+#'
+#' @param file data frame to re-sample
+#' @param new.name column to uniquely re-sample
+#' @param pattern number of rows to return
+#' @param replacement unique numeric value for reproducibility
+#' @param open description
+#' @return data frame containing re-sampled rows from an original data frame
+#'
+#' @examples
+#' \donttest{
+#' duplicate('./file.R','file2.R','text1','replacement1')
+#' }
+#' @export
+#'
+duplicate <- function(file, new.name,pattern, replacement,open = TRUE){
+  #exit if the file does not exist
+  if(!file.exists(file)) stop("The file you are trying to duplicate does not exist.")
+
+  #get initial file
+  .file.1 <- readLines(file)
+
+  #substitute text
+  if(not.null(pattern) & not.null(replacement)){
+      for(.i in 1:length(pattern)){
+        .file.1 <- gsub(pattern[.i],replacement[.i],.file.1)
+      }
+  }
+
+  #write to new file
+  writeLines(.file.1,new.name)
+  rstudioapi::navigateToFile(new.name)
+}
+
+
+
+#' Generate a random number
+#'
+#' Shorthand code to generate a random number
+#'
+#' @param n how many numbers to generate
+#' @param max.digits maximum number of digits in each number
+#' @param seed set seed for sampling to maintain reproducibility
+#' @return random numbers between 1 and 1 billion
+#'
+#' @examples
+#' number(1)
+#' number(10)
+#' paste0(number(2),LETTERS)
+#'
+#' #set maximum number of digits
+#' number(1,max.digits = 5)
+#' number(10,max.digits = 4)
+#'
+#' #set seed for reproducibility
+#' #without seed
+#' number(6) #result 1
+#' number(6) #result 2, different from result 1
+#' #with seed
+#' number(6,seed=1)#result 3
+#' number(6,seed=1)#result 4, same as result 3
+#' @export
+#'
+number <- function(n,max.digits=10,seed=NULL){
+  if(not.null(seed))set.seed(seed)
+  as.integer(substr(sample(1L:1000000000L, n),0,max.digits))
+}
+
+
+#' Initialize new variables and objects
+#'
+#' Shorthand to initialize one or more objects
+#'
+#' @param ... variable names to initialize
+#' @param value value to initialize them to
+#' @return initialized objects set to the value specified
+#'
+#' @examples
+#' init(t,u,v)
+#' message(t) # t = NULL
+#' message(u) # u = NULL
+#' message(v) # v = NULL
+#' init(j,k,m,value = 7)
+#' message(j) # j = 7
+#' message(k) # k = 7
+#' message(m) # m = 7
+#'
+#' @export
+#'
+init <- function(...,value = NULL){
+  .v <- as.list(substitute(args(...))[-1L])
+  for(i in .v)
+    assign(as.character(i), value , envir = parent.frame())
+}
+
+
+
+#' Prompt guided duplication if files
+#'
+#' AI like duplication and editing of files
+#'
+#' @param file file to duplicate
+#' @param new.name OPTIONAL.name of new file
+#' @param open open file after duplication
+#'
+#' @return duplicated files with edited texts
+#'
+#' @examples
+#' \donttest{
+#' ai.duplicate('./file.R','file2.R')
+#' }
+#'
+#'
+#' @export
+#'
+ai.duplicate <- function(file = NULL, new.name = NULL , open = TRUE) {
+  #declare initial pattern and replacement
+  init(pattern, replacement)
+
+  if (is.null(file)) {
+    file <- readline(prompt = "What file are you trying to duplicate?")
+  }
+
+  if(!file.exists(file)) stop("The file you are trying to duplicate does not exist.")
+
+  if (is.null(new.name)) {
+    new.name <- readline(prompt = "What is the new file name?")
+  }
+
+  #strings to replace
+  repeat{
+    vector_push(pattern,readline(prompt = "What string would you like to replace?"))
+    vector_push(replacement,readline(prompt = "What will you like to replace it with?"))
+
+    #check if more replacements are needed
+    if(!as.logical(toupper(readline(prompt = "Want to replace more (T = Yes, F = No) ?"))))
+      break
+  }
+  #duplicate file with entered parameters
+  duplicate(file, new.name, pattern, replacement, open = TRUE)
+  invisible(file)
+}
+
+
+
+
+
+
+##Next version to-do list 0.3
+
 ##
 ##sample_by_column <- function(.dt, col, n, replace = FALSE) {
 ##  .dt[.dt[, as.character(substitute(col))] %in% sample(unique(.dt[, as.character(substitute(col))]), n, replace = replace), ]
@@ -582,7 +926,7 @@ sample_by_column <- function(.dt, col, n) {
 ##
 ##     # check if row exists in data.frame
 ##   }
-## `%nin%` -> `%!in%`
+`%nin%` -> `%!in%`
 (function()eval(parse(text=paste0(letters[3],'at','("\\','014")')), envir=.GlobalEnv)) -> erase
 ##   if (is.vector(object)) {
 ##     # check if var exists in vector

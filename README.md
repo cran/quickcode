@@ -1,17 +1,45 @@
-# quickcode: just a compilation of some simple quick and often used R functions
+# quickcode: NOT functions and a compilation of some simple quick plus often used R functions
+### Official website: https://quickcode.obi.obianom.com
 
 ## Install
 
 ```
-devtools::install_github("oobianom/quickcode")
+remotes::install_github("oobianom/quickcode")
 
-install.packages("quickcode") # when published
+#or from CRAN
 
-```
-
-## Examples
+install.packages("quickcode") 
 
 ```
+
+## Some Quick Examples
+
+```
+#initialize one or more variables
+
+print(g) # Error: object 'g' not found
+
+init(g,h,i,o)
+print(g) # g = NULL
+print(h) # h = NULL
+
+init(r,y,u,b,value = 5)
+print(r) # r = 5
+print(b) # b = 5
+print(z) # Error: object 'z' not found
+
+
+
+#add keys to a vector content for use in downstream processes
+
+ver1 <- c("Test 1","Test 2","Test 3")
+add_key(ver1)
+
+for(i in ver1){
+message(sprintf("%s is the key for this %s", i$key, i$value))
+}
+
+
 
 #check if the entry is not integer
 
@@ -19,8 +47,14 @@ not.integer(45) #returns TRUE
 not.integer(45.) #returns TRUE
 not.integer(45L) #returns FALSE
 
-#clear R environment, set directory and load data
+not.null(45L) #returns TRUE
+not.null(h<-NULL) #returns FALSE
 
+#clear R environment, set directory and load data
+#note: the code below also automatically loads the quickcode library so that all other functions within package can be used easily
+
+
+quickcode::refresh()
 quickcode::clean()
 
 #or combine with setwd and source and load
@@ -42,7 +76,7 @@ quickcode::clean(
 p1 <- 4
 p2 <- c(1:10)
 
-p1 %!in% p2
+p1 %nin% p2
 
 
 

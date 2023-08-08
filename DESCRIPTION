@@ -1,7 +1,7 @@
 Package: quickcode
 Type: Package
 Title: A Compilation of Some Frequently Used R Functions
-Version: 0.1
+Version: 0.2
 Authors@R: c(
     person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")))
 Maintainer: Obinna Obianom <idonshayo@gmail.com>
@@ -18,7 +18,7 @@ Language: en-US
 LazyData: false
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-07-17 17:45:49 UTC; in198
+Packaged: 2023-08-08 12:10:47 UTC; in198
 Author: Obinna Obianom [aut, cre]
 Repository: CRAN
-Date/Publication: 2023-07-18 09:30:02 UTC
+Date/Publication: 2023-08-08 12:30:02 UTC
