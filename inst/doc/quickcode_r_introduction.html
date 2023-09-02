@@ -10,11 +10,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="O.N Obianom" />
+<meta name="author" content="Obinna (OBI) Obianom" />
 
-<meta name="date" content="2023-08-08" />
+<meta name="date" content="2023-09-02" />
 
-<title>quickcode: R package that is just my compilation of useful functions across various processes</title>
+<title>NOT functions, vector_shuffle, data_pop, and init function amongst many great new functions in the quickcode R package</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -237,16 +237,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">quickcode: R package that is just my
-compilation of useful functions across various processes</h1>
-<h4 class="author">O.N Obianom</h4>
-<h4 class="date">2023-08-08</h4>
+<h1 class="title toc-ignore">NOT functions, vector_shuffle, data_pop,
+and init function amongst many great new functions in the quickcode R
+package</h1>
+<h4 class="author">Obinna (OBI) Obianom</h4>
+<h4 class="date">2023-09-02</h4>
 
 
 
-<div id="a-compilation-of-some-useful-functions-to-simply-r-programming-keep-the-console-neat-and-save-memory-usage" class="section level3">
-<h3>A compilation of some useful functions to simply R programming, keep
-the console neat, and save memory usage</h3>
+<div id="a-compilation-of-not-functions-some-useful-functions-to-simply-r-programming-keep-the-console-neat-and-save-memory-usage" class="section level3">
+<h3>A compilation of NOT functions + some useful functions to simply R
+programming, keep the console neat, and save memory usage</h3>
 </div>
 <div id="install" class="section level2">
 <h2>Install</h2>
@@ -261,20 +262,26 @@ install.packages(&quot;quickcode&quot;) # when published
 add.header
 add.snippet.clear
 add_key
-ai.duplicate
 clean
+refresh
 cv.gm
+data_pop
+data_pop_filter
 data_push
 data_shuffle
 duplicate
+ai.duplicate
 g.mean
 header.rmd
 inc
+plus
+minus
 init
 insertInText
 libraryAll
 list_push
 not.data
+not.duplicated
 not.empty
 not.environment
 not.integer
@@ -283,12 +290,167 @@ not.null
 not.numeric
 not.vector
 number
-refresh
 sample_by_column
 sd.gm
+vector_pop
 vector_push
 vector_shuffle
 </code></pre>
+</div>
+<div id="let-me-show-you-a-few-r-examples" class="section level2">
+<h2>Let me show you a few R Examples</h2>
+<hr />
+<pre><code>#initialize one or more variables
+
+print(g) # Error: object &#39;g&#39; not found
+
+init(g,h,i,o)
+print(g) # g = NULL
+print(h) # h = NULL
+
+init(r,y,u,b,value = 5)
+print(r) # r = 5
+print(b) # b = 5
+print(z) # Error: object &#39;z&#39; not found
+</code></pre>
+<hr />
+<pre><code>#add keys to a vector content for use in downstream processes
+
+ver1 &lt;- c(&quot;Test 1&quot;,&quot;Test 2&quot;,&quot;Test 3&quot;)
+add_key(ver1)
+
+for(i in ver1){
+message(sprintf(&quot;%s is the key for this %s&quot;, i$key, i$value))
+}
+</code></pre>
+<hr />
+<pre><code>
+#check if the entry is not integer
+
+not.integer(45) #returns TRUE
+not.integer(45.) #returns TRUE
+not.integer(45L) #returns FALSE
+
+not.null(45L) #returns TRUE
+not.null(h&lt;-NULL) #returns FALSE
+
+</code></pre>
+<hr />
+<pre><code>
+#clear R environment, set directory and load data
+#note: the code below also automatically loads the quickcode library so that all other functions within package can be used easily
+
+
+quickcode::refresh()
+quickcode::clean()
+
+#or combine with setwd and source and load
+
+quickcode::clean(
+  setwd = &quot;/wd/&quot;,
+  source = c(
+  &quot;file.R&quot;,
+  &quot;file2.R&quot;
+  ),
+  load = c(
+  &quot;data.RData&quot;,
+  &quot;data2.RData&quot;
+  )
+)
+
+</code></pre>
+<hr />
+<pre><code>
+#shorthand for not in vector
+
+p1 &lt;- 4
+p2 &lt;- c(1:10)
+
+p1 %nin% p2
+
+
+</code></pre>
+<hr />
+<pre><code>
+#add to a vector in one code
+
+p1 &lt;- c(6,7,8)
+p2 &lt;- c(1,2,3)
+
+vector_push(p1,p2)
+
+print(p1)
+
+</code></pre>
+<hr />
+<pre><code>
+#add to a data frame in one code
+
+p1 &lt;- data.frame(ID=1:10,ID2=1:10)
+p2 &lt;- data.frame(ID=11:20,ID2=21:30)
+
+data_push(p1,p2,&quot;rows&quot;)
+
+print(p1)
+</code></pre>
+<hr />
+<pre><code>
+#remove from a vector in one code
+
+p1 &lt;- c(6,7,8,1,2,3)
+
+vector_pop(p1)
+
+print(p1)
+
+</code></pre>
+<hr />
+<pre><code>
+
+
+#remove from a data frame in one code
+
+p1 &lt;- data.frame(ID=1:10,ID2=1:10,CD=11:20,BD=21:30)
+
+data_pop(p1) #remove last row
+
+print(p1)
+
+data_pop(p1,5) #remove last 5 rows
+
+print(p1)
+</code></pre>
+<hr />
+<pre><code>
+
+#remove columns from a data frame in one code
+
+p1 &lt;- data.frame(ID=1:10,ID2=1:10,ID4=1:10,CD=11:20,BD=21:30)
+
+data_pop(p1,which = &quot;cols&quot;) #remove last column
+
+print(p1)
+
+data_pop(p1,2,which = &quot;cols&quot;) #remove last 2 columns
+
+print(p1)
+
+data_pop(p1,1,which = &quot;cols&quot;) #remove last 1 column and vectorise
+
+print(p1)
+</code></pre>
+<hr />
+<pre><code>#load libraries
+
+quickcode::libraryAll(
+  dplyr,
+  r2resize,
+  ggplot2
+)
+
+</code></pre>
+<hr />
+<pre><code></code></pre>
 <p>Check out some examples at <u>quickcode.obi.obianom.com</u></p>
 </div>
 

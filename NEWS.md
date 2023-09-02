@@ -1,3 +1,10 @@
+# quickcode 0.3
+
+- [x] Add initial tests using testthat
+- [x] New compilation of functions
+- [x] Improvement to clean and refresh functions
+
+
 # quickcode 0.2
 
 - [x] New functions
