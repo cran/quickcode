@@ -4,6 +4,20 @@
 #'
 #' @param vector vector or data frame to transform
 #' @return a transformed list containing keys along with vector values
+#' @details
+#' This function takes a vector and turns it into a list containing 'key' and 'value' for each vector.
+#' This allows the output to be used in loops such as for loops or lapply or other functions to track
+#' the index of the list content e.g. 1,2,3...\cr\cr
+#'
+#' This function also contains a validator to ensure that a vector had not been previously 'keyed',
+#' which prevents the user from inadvertently calling the function twice on a vector. Helps especially
+#' because the function keys the vector, and sets the new list to the variable name of the original
+#' vector.
+#'
+#'
+#' @section Use case:
+#' Efficient for loops and for tracking various steps through a vector contents
+#'
 #' @examples
 #' #ex1 simple conversion of a vector
 #' rti2 <- c("rpkg","obinna", "obianom")
@@ -14,14 +28,23 @@
 #' ver1 <- c("Test 1","Test 2","Test 3")
 #' add_key(ver1)
 #'
+#' #ex3 use keyed ver1 in for loop
 #' for(i in ver1){
 #'   message(sprintf("%s is the key for this %s", i$key, i$value))
 #' }
 #'
+#' #ex4 use keyed ver1 in lapply loop
+#' xl1 <- lapply(ver1,function(i){
+#'   message(sprintf("lapply - %s is the key for this %s", i$key, i$value))
+#' })
+#'
+#'
 #' @export
 #'
 add_key <- function(vector){
-  message("Function being further developed to accomodate data frames and other lists")
+  if(inherits(vector,"klist")) stop("Key already added to object.")
+
+  #create list and add keys
   . = list()
   iky = 1
   for(i in vector){
@@ -30,5 +53,8 @@ add_key <- function(vector){
   }
   #resave to vector name
   .. <- substitute(vector)
+  class(.) <- c('klist','list')
   assign(as.character(..), ., envir = parent.frame())
 }
+
+#message("Function being further developed to accomodate data frames and other lists")

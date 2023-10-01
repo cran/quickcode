@@ -10,17 +10,22 @@
 #' @param round round result to decimal place
 #' @return the geometric cv of a set of numbers
 #' @examples
-#' num1 <- sample(330:400,15)
+#' #simulate numbers using a fixed seed
+#' num1 <- number(n = 1115,max.digits = 4, seed = 10)
 #'
-#' #get geometric CV, represent as percent and round to 3 decimal places
-#' cv.gm(num1,round = 3)
+#' #get geometric CV, represent as percent and round to 2 decimal places
+#' geo.cv(num1,round = 2) # result: 60.61%
 #'
-#' #or
-#' geo.cv(num1,round = 3)
+#' #or round to 3 decimal places
+#' geo.cv(num1,round = 3) # result: 60.609%
+#'
+#' #by default, the above examples return a CV%
+#' #if you do not want the result as percentage, specify "pct"
+#' geo.cv(num1,pct = FALSE) # result: 0.61
 #'
 #' @export
 
-cv.gm <- function(num, na.rm = TRUE, neg.rm = TRUE, pct = TRUE, round = 2) {
+geo.cv <- function(num, na.rm = TRUE, neg.rm = TRUE, pct = TRUE, round = 2) {
   if(not.numeric(num)) stop("The vector must have numbers only")
   if(neg.rm) num <- num[num > 0]
   res <- sqrt(exp(sd(log(num), na.rm = na.rm)^2) - 1)
@@ -28,8 +33,3 @@ cv.gm <- function(num, na.rm = TRUE, neg.rm = TRUE, pct = TRUE, round = 2) {
   round(res,round)
 }
 
-
-#' @inherit cv.gm
-#' @export
-
-cv.gm -> geo.cv

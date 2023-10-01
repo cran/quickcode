@@ -1,5 +1,12 @@
 # quickcode: NOT functions and a compilation of some simple quick plus often used R functions
-### Official website: https://quickcode.obi.obianom.com
+
+<img src="https://quickcode.obi.obianom.com/CRAN/rockybilly.regular_qc.webp" width="350" align="right">
+
+## Official website: https://quickcode.obi.obianom.com
+
+***
+***
+
 
 ## Install
 
@@ -18,6 +25,35 @@ install.packages("quickcode")
 ![](https://quickcode.obi.obianom.com/quickcode.png)
 
 ## Some Quick R Examples
+
+***
+
+```
+#simple conversion between boolean types
+#input type is "vector"
+baba <- c(TRUE,"y","n","YES","yes",FALSE,"f","F","T","t")
+as.boolean(baba,1) # return vector as Yes/No
+as.boolean(baba,2) # return vector as TRUE/FALSE
+as.boolean(baba,3) # return vector as 1/0
+
+```
+***
+
+```
+#apply the yesNoBool to convert between boolean
+#input type is "data.frame"
+usedata <- data.frame(ID = number(32))
+usedata #view the dataset
+
+usedata$yess = rep(c("yes","n","no","YES","No","NO","yES","Y"),4) #create a new column
+usedata #view the modified dataset
+
+#set all yess field as standardize boolean
+yesNoBool(usedata,yess, type="bin") #set all as binary 1/0
+yesNoBool(usedata,yess, type="log") #set all as logical TRUE/FALSE
+
+```
+
 
 ***
 

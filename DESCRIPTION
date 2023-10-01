@@ -1,17 +1,19 @@
 Package: quickcode
 Type: Package
 Title: A Compilation of Some Frequently Used R Functions
-Version: 0.3
+Version: 0.4
 Authors@R: c(
-    person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")))
+    person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")),
+    person("Brice", "Richard", email = "wem3mew@msn.com", role = "aut")
+    )
 Maintainer: Obinna Obianom <idonshayo@gmail.com>
 Description: The NOT functions and a simple compilation of various functions for easy usage. Shorthand code to save memory usage.
 License: MIT + file LICENSE
 URL: https://quickcode.obi.obianom.com
 BugReports: https://github.com/oobianom/quickcode
 Depends: R (>= 3.6)
-Imports: utils, grDevices, stats, rlang, rstudioapi
-Suggests: rmarkdown, knitr, qpdf, testthat (>= 3.0.0)
+Imports: utils, grDevices, stats, rlang, rstudioapi, tools, Polychrome
+Suggests: rmarkdown, knitr, qpdf, testthat
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US
@@ -19,7 +21,8 @@ LazyData: false
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-09-02 19:02:21 UTC; in198
-Author: Obinna Obianom [aut, cre]
+Packaged: 2023-10-01 00:13:07 UTC; in198
+Author: Obinna Obianom [aut, cre],
+  Brice Richard [aut]
 Repository: CRAN
-Date/Publication: 2023-09-02 19:20:02 UTC
+Date/Publication: 2023-10-01 04:40:02 UTC
