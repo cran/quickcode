@@ -9,6 +9,7 @@ randString <- function(n, length) {
 
 # minimal func to check date format
 # expected format  YYYY-MM-DD
+# or simple format is.na(as.Date(after, "%Y-%m-%d"))
 check_date_format <- function(date){
   splitdate <- strsplit(date,"-")[[1]]
   if(length(splitdate) != 3) stop("Date format must be YYYY-MM-DD")
@@ -21,9 +22,13 @@ check_date_format <- function(date){
 }
 
 
+# Random image downloader categories
+imageCategories <- c("3D", "animals", "architecture", "backgrounds", "beauty", "experimental",
+          "fashion", "film", "food", "interior", "nature", "people", "renders",
+          "school", "sports", "travel", "unsplash", "wallpapers")
 
 
-##Next version to-do list 0.5
+##Next version to-do list 0.6
 
 
 ## Next version

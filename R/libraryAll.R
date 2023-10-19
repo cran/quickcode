@@ -1,5 +1,6 @@
 #' Load specific R libraries and clear environment
 #'
+#' Load specific packages, print a list of the loaded packages along with versions.
 #' Only include libraries, don't install if library doesn't exist
 #'
 #' @param ... multiple library names
@@ -9,27 +10,25 @@
 #' @return loaded libraries and clear environment
 #' @examples
 #' \donttest{
-#' libraryAll(r2resize) #one package
+#' libraryAll(base) #one package
 #'
 #' libraryAll(
-#'   r2symbols,
-#'   dplyr,
-#'   ggplot2,
-#'   shinyStorePlus
+#'   base,
+#'   tools,
+#'   stats
 #' ) #multiple packages
 #'
-#' libraryAll("r2ymbols") #with quotes
+#' libraryAll("grDevices") #with quotes
 #'
 #' libraryAll(
-#'   xml2,
-#'   mrgsolve,
+#'   stats,
+#'   utils,
 #'   quietly = TRUE
 #' ) #load quietly
 #'
 #' libraryAll(
-#'   nextGenShinyApps,
+#'   base,
 #' clear = FALSE) #do not clear console after load
-#'
 #' }
 #' @export
 
@@ -38,10 +37,15 @@ libraryAll <- function(..., lib.loc = NULL, quietly = FALSE, clear = TRUE) {
   if("quickcode" %nin% (.packages())) library(quickcode, quietly = TRUE)
   # load user requested libraries
   lib.names <- as.list(substitute(args(...))[-1L])
-  lapply(lib.names, function(lib) do.call("library", list(package = lib, lib.loc = lib.loc, quietly = quietly)))
+  invisible(lapply(lib.names, function(lib) do.call("library", list(package = lib, lib.loc = lib.loc, quietly = quietly))))
 
   if(!length(lib.names)){
     library()
   }
-  if(clear)erase()
+  if(clear){
+    erase()
+    message("Packages Loaded:")
+    #return only package versions
+    invisible(lapply(lib.names, function(lib) message(paste0(lib,", version ",utils::packageVersion(lib)))))
+  }
 }
