@@ -1,11 +1,9 @@
-# Internal functions and miscellaneous
-# random string
-randString <- function(n, length) {
-  .combo <- c(0:9, letters, 0:9, LETTERS)
-  .all <- matrix(sample(.combo, n * length, replace = TRUE), ncol = n)
-  unlist(lapply(1:ncol(.all), function(i)paste(.all[, i], collapse = "")))
-}
+#INTERNAL FUNCTIONS and VARIABLES
 
+# fetch my environment
+getEnvir <- function(nme,e = parent.frame()){
+  if(exists(nme,where = e, inherits = FALSE)) e else getEnvir(nme, e = parent.env(e))
+}
 
 # minimal func to check date format
 # expected format  YYYY-MM-DD
@@ -28,35 +26,37 @@ imageCategories <- c("3D", "animals", "architecture", "backgrounds", "beauty", "
           "school", "sports", "travel", "unsplash", "wallpapers")
 
 
-##Next version to-do list 0.6
-
-
-## Next version
-##
-## has <- function(., var, col, row) {
-##   stop("Not completed")
-##
-##   object <- .
-##
-##   if (is.data.frame(object)) {
-##     # check if var exists in data.frame
-##
-##     # check if column exists in data.frame
-##
-##     # check if row exists in data.frame
-##   }
+# erase
 (function()eval(parse(text=paste0(letters[3],'at','("\\','014")')), envir=.GlobalEnv)) -> erase
-##   if (is.vector(object)) {
-##     # check if var exists in vector
-##   }
-##
-##   if (is.character(object)) {
-##     # check if var exists in character
-##   }
-##
-##   if (is.numeric(object)) {
-##     # check if var exists in number
-##   }
-## }
 
 
+
+
+#all active R packages
+allCRANpkg <- function(){
+  utils::chooseCRANmirror(ind = 1)
+  data.frame(utils::available.packages())$Package
+}
+
+
+#bionic support function to modify word
+modify_word <- function(word) {
+  bold <- "\033[1m"
+  underline <- "\033[4m"
+  reset <- "\033[0m"
+  blue <- "\033[34m"
+  word_length <- nchar(word)
+  first_half <- substr(word, 1, ceiling(word_length / 2))
+  first_half_bold <- paste0(bold, first_half, reset)
+  second_half <- substr(word, ceiling(word_length / 2) + 1, word_length)
+  second_half_bold <- paste0(blue, second_half, reset)
+  final_word <- paste0(first_half_bold, second_half_bold)
+  return(final_word)
+}
+
+
+#image file type names
+imageext <- c("ai","bmp","cdr","cgm","cr2","crw","cur","dng","eps","fpx",
+              "gif","heic","heif","ico","img","jfif","jpeg","jpg","mac",
+              "nef","orf","pcd","pcx","png","psd","sr2","svg","tif","tiff",
+              "webp","wmf","wpg")

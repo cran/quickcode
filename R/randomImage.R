@@ -2,12 +2,12 @@
 #'
 #' Generate n number of high-definition images by category from the web
 #'
-#' @param fp storage directory
-#' @param cat category of image to download
-#' @param n number of images to download, maximum n is 99
-#' @param w.px width in pixels
-#' @param h.px height in pixels
-#' @param ext file extension eg jpg, png
+#' @param fp CHARACTER. storage directory
+#' @param cat CHARACTER. category of image to download
+#' @param n NUMERIC. number of images to download, maximum n is 99
+#' @param w.px NUMERIC. width in pixels
+#' @param h.px NUMERIC. height in pixels
+#' @param ext CHARACTER. file extension eg jpg, png
 #'
 #' @section Sources & References:
 #' The random images are downloaded from www.unsplash.com
@@ -16,7 +16,10 @@
 #' Categories for 'cat' argument include
 #' "3D", "animals", "architecture", "backgrounds", "beauty", "experimental",
 #' "fashion", "film", "food", "interior", "nature", "people", "renders",
-#' "school", "sports", "travel", "unsplash", "wallpapers"
+#' "school", "sports", "travel", "unsplash", "wallpapers".\cr\cr
+#' Image categories can be captured in a separate vector as a cross-reference made available to the cat argument. \cr For example: \cr
+#' imgcat= c("3D", "animals", "architecture", "backgrounds", "beauty", "experimental", "fashion", "film", "food", "interior", "nature", "people", "renders", "school", "sports", "travel", "unsplash", "wallpapers")\cr\cr
+#' genRandImg(fp, cat = imgcat[9], n = 5)
 #'
 #'
 #' @section Use case:

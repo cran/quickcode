@@ -1,23 +1,15 @@
-# quickcode: NOT functions and a compilation of some simple quick plus often used R functions
+<p align="center">
+<img src="https://quickcode.obi.obianom.com/CRAN/rockybilly.regular_qc.webp" width="350">
 
-<img src="https://quickcode.obi.obianom.com/CRAN/rockybilly.regular_qc.webp" width="350" align="right">
+</p>
+
+# quickcode: NOT functions and a compilation of some simple quick plus often used R functions
 
 ## Official website: https://quickcode.obi.obianom.com
 
-***
-***
 
+[![](https://quickcode.obi.obianom.com/quickcode_load_type.svg)](https://rpkg.net/package/quickcode)
 
-## Install
-
-```
-remotes::install_github("oobianom/quickcode")
-
-#or from CRAN
-
-install.packages("quickcode") 
-
-```
 # 30+ great R functions to add to your scripts!
 
 ## Featured function
@@ -25,6 +17,11 @@ install.packages("quickcode")
 ![](https://quickcode.obi.obianom.com/quickcode.png)
 
 ## Some Quick R Examples
+
+***
+
+![](https://quickcode.obi.obianom.com/bionic_txt2.png)
+
 
 ***
 
@@ -249,10 +246,6 @@ quickcode::libraryAll(
 
 ```
 
-***
-
-```
-```
 
 
-### And many more useful functions...
+### And many more useful functions including list_shuffle, in.range ...

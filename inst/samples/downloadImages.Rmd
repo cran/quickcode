@@ -1,0 +1,67 @@
+---
+title: "Download random HD images from various unsplash.com categories in R using the Quickcode package"
+author: "Obi Obianom and Brice Richard"
+date: "2023-10-20"
+output: html_document
+---
+
+```{r}
+# install quickcode if not available
+# install.packages(quickcode)
+
+# load quickcode library
+library(quickcode)
+#clean() #clear the environment
+
+# let's load the r2resize to provide toolbars for the image resizing
+library(r2resize)
+add.resizer(line.color = "brown", line.height = "3", default.image.width = "30%")
+
+```
+
+## Download 3 random images from the school category and display
+
+For this example, we will download 3 random png images from the web in the category of 'school' to a temp directory and then display it. The r2resize package provides the image resizer that lets us view the images nicely below.
+
+```{r download school images}
+storlocation <- tempdir()
+genRandImg(fp = storlocation, n = 3, cat = "school", ext = "png")
+
+getdownloadedfiles = list.files(path = storlocation, pattern = ".png", full.names = TRUE)
+```
+
+Display the images:
+
+`r paste0("![](",getdownloadedfiles[1],")")`
+`r paste0("![](",getdownloadedfiles[2],")")`
+`r paste0("![](",getdownloadedfiles[3],")")`
+
+
+
+## Download 6 random images from the animals category and display
+
+For this example, we will download 6 random jpg images from the web in the category of 'school' to a temp directory and then display it. 
+
+```{r download animals images}
+storlocation2 <- tempdir()
+genRandImg(fp = storlocation2, n = 6, cat = "animals", ext = "jpg")
+
+getdownloadedfiles = list.files(path = storlocation2, pattern = ".jpg", full.names = TRUE)
+
+```
+
+Display the images:
+
+`r paste0("![](",getdownloadedfiles[1],")")`
+`r paste0("![](",getdownloadedfiles[2],")")`
+`r paste0("![](",getdownloadedfiles[3],")")`
+`r paste0("![](",getdownloadedfiles[4],")")`
+`r paste0("![](",getdownloadedfiles[5],")")`
+`r paste0("![](",getdownloadedfiles[6],")")`
+
+## Quick links
+
+ - quickcode github: https://github.com/oobianom/quickcode
+ - quickcode CRAN: https://cran.r-project.org/web/packages/quickcode/index.html
+ - raw Rmd file for this HTML: https://github.com/oobianom/quickcode/blob/main/inst/sample%20codes/downloadImages.Rmd
+

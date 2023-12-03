@@ -58,7 +58,7 @@ clean <- function(setwd = NULL, source = c(), load = c(), clearPkgs = FALSE) {
   erase() #clear console
   rm(list = setdiff(ls(envir = parent.frame(),all.names = TRUE),
                     c("setwd", "source", "load", "clearPkgs")), envir = parent.frame())
-  graphics.off() #graphics off
+  if(.Device !="null device" | length(grDevices::dev.list())) graphics.off() #graphics off
   closeAllConnections() #close any open connections
   gc() #garbage cleanup to free memory
 
@@ -97,6 +97,7 @@ clean <- function(setwd = NULL, source = c(), load = c(), clearPkgs = FALSE) {
   if (length(source)) {
     for (sourced in source) {
       if (file.exists(sourced)) source(sourced)
+      else warning(sourced," does not exist.\n")
     }
   }
 
@@ -104,6 +105,7 @@ clean <- function(setwd = NULL, source = c(), load = c(), clearPkgs = FALSE) {
   if (length(load)) {
     for (loaded in load) {
       if (file.exists(loaded)) load(loaded, envir = parent.frame())
+      else warning(loaded," does not exist.\n")
     }
   }
 }
