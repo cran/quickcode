@@ -38,6 +38,14 @@ allCRANpkg <- function(){
   data.frame(utils::available.packages())$Package
 }
 
+#check if a package ever existed
+pkg.existed.cran <- function(package){
+  check = readLines(
+    paste0("https://quickcode.obi.obianom.com/CRAN/existed.php?package=",package)
+    )
+  if(check == "200") TRUE else FALSE
+}
+
 
 #bionic support function to modify word
 modify_word <- function(word) {
@@ -60,3 +68,12 @@ imageext <- c("ai","bmp","cdr","cgm","cr2","crw","cur","dng","eps","fpx",
               "gif","heic","heif","ico","img","jfif","jpeg","jpg","mac",
               "nef","orf","pcd","pcx","png","psd","sr2","svg","tif","tiff",
               "webp","wmf","wpg")
+
+#super env.ironment
+super. <- paste0("package:",.packageName,"_sVar")
+#customize out
+prtr <- function (x, ...) UseMethod("print")
+#is.attached
+is.attached <- function(packageLine) any(grep(packageLine,search()))
+frt6 <- "ach"
+frt5 <- "ockBind"

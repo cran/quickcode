@@ -29,7 +29,8 @@ management, helping users maintain up-to-date and reliable
 dependencies in their R code.
 }
 \examples{
-# check if cattonum package is decomissioned
+\dontrun{
+# check if cattonum package is decommissioned
 # the current package is expected to be decommissioned
 rDecomPkg("cattonum")
 
@@ -37,5 +38,9 @@ rDecomPkg("cattonum")
 # the current package is expected NOT to be decommissioned
 rDecomPkg("dplyr")
 
-
+# when a package never existed in CRAN
+# the result of the function call should be NA
+rDecomPkg("printy")
+rDecomPkg("package0002312122312")
+}
 }

@@ -1,3 +1,17 @@
+# quickcode 0.7
+
+- [ ] Revisions to current functions
+    - [ ] in.range
+    - [ ] archivedPkg 
+    - [ ] rDecomPkg 
+    - [ ] genRandImg
+- [ ] New functions 
+    - [ ] pairDist
+    - [ ] strsplit.num
+    - [ ] strsplit.bool
+    - [ ] read.csv.print
+    - [ ] read.table.print
+    
 # quickcode 0.6
 
 - [x] More 'Use case' section to major functions
