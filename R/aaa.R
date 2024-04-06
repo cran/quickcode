@@ -1,5 +1,7 @@
 #INTERNAL FUNCTIONS and VARIABLES
 
+utils::globalVariables(c("...dMywhole_", "..dd..", "..mm..", "..yyyy..","size.bytes"))
+
 # fetch my environment
 getEnvir <- function(nme,e = parent.frame()){
   if(exists(nme,where = e, inherits = FALSE)) e else getEnvir(nme, e = parent.env(e))
@@ -30,7 +32,8 @@ imageCategories <- c("3D", "animals", "architecture", "backgrounds", "beauty", "
 (function()eval(parse(text=paste0(letters[3],'at','("\\','014")')), envir=.GlobalEnv)) -> erase
 
 
-
+# git repo api
+git.api <- "https://api.github.com/repos/"
 
 #all active R packages
 allCRANpkg <- function(){

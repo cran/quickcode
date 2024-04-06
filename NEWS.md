@@ -1,16 +1,39 @@
+# quickcode 0.8
+
+- [x] Revisions to current functions
+    - [x] fAddDate
+- [x] New functions 
+    - [x] date1to3
+    - [x] date3to1
+    - [x] switch_rows
+    - [x] switch_cols
+    - [x] has.error
+    - [x] getGitRepoStart
+    - [x] getGitRepoChange
+    - [x] is.lognormal
+    - [x] is.normal
+    - [x] is.uniform
+    - [x] is.poisson
+    - [x] is.gamma
+    - [x] is.logistic
+    - [x] is.weibull
+    - [x] is.cauchy
+    - [x] setDisAlpha
+    - [x] unsetDisAlpha
+    
 # quickcode 0.7
 
-- [ ] Revisions to current functions
-    - [ ] in.range
-    - [ ] archivedPkg 
-    - [ ] rDecomPkg 
-    - [ ] genRandImg
-- [ ] New functions 
-    - [ ] pairDist
-    - [ ] strsplit.num
-    - [ ] strsplit.bool
-    - [ ] read.csv.print
-    - [ ] read.table.print
+- [x] Revisions to current functions
+    - [x] in.range
+    - [x] archivedPkg 
+    - [x] rDecomPkg 
+    - [x] genRandImg
+- [x] New functions 
+    - [x] pairDist
+    - [x] strsplit.num
+    - [x] strsplit.bool
+    - [x] read.csv.print
+    - [x] read.table.print
     
 # quickcode 0.6
 

@@ -1,18 +1,19 @@
 Package: quickcode
 Type: Package
-Title: A Compilation of Some Frequently Used R Functions
-Version: 0.7
+Title: Quick and Essential 'R' Tricks for Better Scripts
+Version: 0.8
 Authors@R: c(
     person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")),
     person("Brice", "Richard", email = "wem3mew@msn.com", role = "aut")
     )
 Maintainer: Obinna Obianom <idonshayo@gmail.com>
-Description: The NOT functions and a simple compilation of various functions for easy usage. Shorthand code to save memory usage.
+Description: The NOT functions, 'R' tricks and a compilation of some simple quick plus often used 'R' codes to improve your scripts. Improve the quality and reproducibilty of 'R' scripts.
 License: MIT + file LICENSE
 URL: https://quickcode.obi.obianom.com
 BugReports: https://github.com/oobianom/quickcode
-Depends: R (>= 3.6)
-Imports: utils, grDevices, stats, rstudioapi, tools, Polychrome
+Depends: R (> 3.6)
+Imports: utils, grDevices, stats, rstudioapi, tools, Polychrome,
+        fitdistrplus
 Suggests: rmarkdown, knitr, qpdf, testthat
 Encoding: UTF-8
 VignetteBuilder: knitr
@@ -21,8 +22,8 @@ LazyData: false
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2024-03-03 06:40:32 UTC; in198
+Packaged: 2024-04-06 04:38:23 UTC; in198
 Author: Obinna Obianom [aut, cre],
   Brice Richard [aut]
 Repository: CRAN
-Date/Publication: 2024-03-03 07:00:02 UTC
+Date/Publication: 2024-04-06 10:30:07 UTC

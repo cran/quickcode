@@ -38,9 +38,9 @@ strsplit.num(num.01, split = " ")
 
 # Example 2
 # string of numbers with separator "|||"
-num.02 = "0|||1|||4|||43|||6|||8|||00||| 1||| 0 1 T |||F TRUE |||f"
+num.02 = "0|||1|||4|||43|||6|||8|||00||| 1||| 0 1||| T |||F|||TRUE |||f"
 
 # split a string of numbers and return as numeric
-strsplit.num(num.02, split = "|||")
+strsplit.num(num.02, split = "[|||]")
 
 }

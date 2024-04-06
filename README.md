@@ -1,9 +1,11 @@
 <p align="center">
 <img src="https://quickcode.obi.obianom.com/CRAN/rockybilly.regular_qc.webp" width="350">
 
+# NOT functions, R tricks and a compilation of some simple quick plus often used codes to improve your R scripts
+
 </p>
 
-# quickcode: NOT functions and a compilation of some simple quick plus often used R functions
+
 
 ## Official website: https://quickcode.obi.obianom.com
 
@@ -11,9 +13,14 @@
 
 ### Package stats: https://rpkg.net/package/quickcode
 
-[![](https://quickcode.obi.obianom.com/quickcode_load_type.svg)](https://rpkg.net/package/quickcode)
+```
+# Install in R
+install.packages("quickcode")
+```
 
-# 30+ great R functions to add to your scripts!
+[![](https://quickcode.obi.obianom.com/writeit2.svg)](https://rpkg.net/package/quickcode)
+
+# 70+ great R functions to add to your scripts!
 
 ## Featured function 1
 ### Add one-line code in your R script to clear environment, clear console, set working directory and load files
@@ -24,7 +31,7 @@
 ### Create a super variable with unique capability and wide scope
 ![](https://quickcode.obi.obianom.com/quickcode2.png)
 
-## Some Quick R Examples
+## ✅ Some Quick R Examples
 
 ***
 
