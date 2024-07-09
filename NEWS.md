@@ -1,3 +1,13 @@
+# quickcode 0.9
+
+- [x] Fixed bugs in functions
+    - [x] clean/refresh
+- [x] New functions 
+    - [x] getWeekSeq
+    - [x] zscore
+    - [x] getDistribution
+    - And many more...check documentation and website
+
 # quickcode 0.8
 
 - [x] Revisions to current functions

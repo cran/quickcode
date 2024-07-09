@@ -2,9 +2,12 @@
 % Please edit documentation in R/not.empty.R
 \name{not.empty}
 \alias{not.empty}
+\alias{is.empty}
 \title{Not empty}
 \usage{
 not.empty(x)
+
+is.empty(x)
 }
 \arguments{
 \item{x}{vector entry}

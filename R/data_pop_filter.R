@@ -30,9 +30,18 @@ data_pop_filter <- function(.,remove){
   if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
   data <- as.data.frame(get(as.character(..), envir = parent.frame()))
   filt <- as.character(list(....))
-  for(x in names(data))
-    filt <- gsub(x,paste0("data$",x),filt)
-  eval(parse(text = paste0("data = data[!(",filt,"),]")))
-  #alternatively: eval(parse(text = paste0("data = subset(data,!(",filt,"))")))
+  eval(parse(text = paste0("data = subset(data,!(",filt,"))")))
   assign(as.character(..), data, envir = parent.frame())
 }
+
+
+# .. <- substitute(.)
+# .... <- substitute(remove)
+# if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
+# data <- as.data.frame(get(as.character(..), envir = parent.frame()))
+# filt <- as.character(list(....))
+# for(x in names(data))
+#   filt <- gsub(x,paste0("data$",x),filt)
+# eval(parse(text = paste0("data = data[!(",filt,"),]")))
+# #alternatively: eval(parse(text = paste0("data = subset(data,!(",filt,"))")))
+# assign(as.character(..), data, envir = parent.frame())

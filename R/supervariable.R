@@ -146,7 +146,7 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
   }
 
   # FUN
-  els <- c("", ".rm", ".set", ".contains", ".round", ".signif", ".class")
+  els <- c("", ".rm", ".set", ".contains", ".round", ".signif", ".class",".head",".tail")
 
   # remove
   rmv <- function() {
@@ -191,6 +191,21 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
     assign(ioo, bv, envir = .pos80cbca8022ece6174797e10bb8aebf18)
     if (lock) lockBinding(ioo, env = .pos80cbca8022ece6174797e10bb8aebf18)
   }
+
+  # head
+  headd <- function(n = 10) {
+    .l = {get(as.character(i), envir = .pos80cbca8022ece6174797e10bb8aebf18)}
+    stopifnot(inherits(.l,"data.frame")) # data must be a data frame
+    print(.l[1:n,])
+  }
+  # head
+  taill <- function(n = 10) {
+    .l = {get(as.character(i), envir = .pos80cbca8022ece6174797e10bb8aebf18)}
+    stopifnot(inherits(.l,"data.frame")) # data must be a data frame
+    print(.l[(nrow(.l)-n+1):nrow(.l),])
+  }
+
+
 
   # significant figures
   sgif <- function(digits = 0) {
@@ -240,6 +255,15 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
     assign(paste0(i, els[4]), .join(cntsa), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     assign(paste0(i, els[5]), .join(rldd), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     assign(paste0(i, els[6]), .join(sgif), envir = .pos80cbca8022ece6174797e10bb8aebf18)
+
+    if(inherits(value,"data.frame")){
+      #if data frame, add the head and tail functions
+      assign(paste0(i, els[8]), .join(headd), envir = .pos80cbca8022ece6174797e10bb8aebf18)
+      assign(paste0(i, els[9]), .join(taill), envir = .pos80cbca8022ece6174797e10bb8aebf18)
+    }else{
+      els <- els %-% c(".head",".tail")
+    }
+
     if(editn1 != 0)
       assign(paste0(i, els[3]), .join(ifelse(lock, setv, setl)), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     else els <- els[els!=".set"]
@@ -250,27 +274,13 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
 }
 
 
-
-
-
-# to-do v0.9
-# function to track function usage
-# type3 <-function(x)type1(x)
-# type1 <- function(x){
-#   mean(x)
-#   sd(x)
-#   tracker()
-# }
-#
-# tracker <- function(apiId){
-#   getCall<-as.character(sys.calls()[[length(sys.calls())-1]])
-#   getFuncName <- strsplit(getCall,"\\(")[[1]][1]
-#   print(getFuncName)
-#   ls("package:quickcode")
-# }
-
-
-
-
-#assign(".pos80cbca8022ece6174797e10bb8aebf18", .pos80cbca8022ece6174797e10bb8aebf18, envir = .pos80cbca8022ece6174797e10bb8aebf18)
-#lockBinding(".pos80cbca8022ece6174797e10bb8aebf18", env = .pos80cbca8022ece6174797e10bb8aebf18)
+# will be exported in future release
+`%-%` <- function(item1,item2,return=FALSE){
+  if(!all(class(item1) == class(item2))) stop("Both variables must have the same class")
+  res <- "The variables have to be either two lists or two character vectors"
+  if(inherits(item1,"character"))
+  res <- item1[item1%nin%item2]
+  if(inherits(item1,"list"))
+  res <- mapply('-', item1, item2, SIMPLIFY = FALSE)
+  res
+}

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Obinna (OBI) Obianom" />
+
+<meta name="date" content="2024-07-07" />
+
+<title>Easily add today’s date to filenames in R using quickcode package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Easily add today’s date to filenames in R
+using quickcode package</h1>
+<h4 class="author">Obinna (OBI) Obianom</h4>
+<h4 class="date">2024-07-07</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quickcode::clean(clearPkgs = TRUE) #clear environment and clear previous package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>quickcode<span class="sc">::</span><span class="fu">libraryAll</span>(datasets) <span class="co">#load in-built dataset</span></span></code></pre></div>
+<div style="page-break-after: always;"></div>
+<pre><code>## Packages Loaded:</code></pre>
+<pre><code>## datasets, version 4.0.2</code></pre>
+<div id="fadddate-function" class="section level2">
+<h2>fAddDate function</h2>
+<div id="in-r-data-often-gets-saved-to-files-for-future-use-or-subsequent-processes.-however-without-a-version-control-system-in-place-ensuring-the-consistency-and-reproducibility-of-saved-data-can-pose-challenges-particularly-when-scripts-evolve-over-time.-the-fadddate-function-addresses-such-concerns-by-automatically-appending-the-current-date-to-the-file-name-mitigating-the-risk-of-data-loss-and-enhancing-reproducibility.-by-simplifying-the-process-with-just-a-single-line-of-code-users-no-longer-need-to-manually-update-the-date-of-each-run-thereby-streamlining-workflow-efficiency.-reproducibility-in-programming-is-crucial-for-maintaining-the-integrity-of-analyses-and-fostering-trust-in-research-outcomes.-ensuring-that-results-can-be-consistently-replicated-not-only-enhances-transparency-but-also-facilitates-collaboration-and-builds-confidence-in-the-reliability-of-findings.-therefore-by-incorporating-automated-date-stamping-this-function-not-only-safeguards-against-data-inconsistency-but-also-reinforces-the-fundamental-principles-of-reproducible-research-in-r-programming." class="section level4">
+<h4>In R, data often gets saved to files for future use or subsequent
+processes. However, without a version control system in place, ensuring
+the consistency and reproducibility of saved data can pose challenges,
+particularly when scripts evolve over time. The “fAddDate” function
+addresses such concerns by automatically appending the current date to
+the file name, mitigating the risk of data loss and enhancing
+reproducibility. By simplifying the process with just a single line of
+code, users no longer need to manually update the date of each run,
+thereby streamlining workflow efficiency. Reproducibility in programming
+is crucial for maintaining the integrity of analyses and fostering trust
+in research outcomes. Ensuring that results can be consistently
+replicated not only enhances transparency but also facilitates
+collaboration and builds confidence in the reliability of findings.
+Therefore, by incorporating automated date stamping, this function not
+only safeguards against data inconsistency but also reinforces the
+fundamental principles of reproducible research in R programming.</h4>
+<p><img src="data:image/png;base64,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" /></p>
+</div>
+</div>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<p>Let’s load the USArrests data. And let’s assume that we want to save
+data to the system using the content of the row names as our file
+names.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;USArrests&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>filenames <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">row.names</span>(USArrests), <span class="st">&quot;.txt&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filenames,<span class="dv">8</span>) <span class="co"># before adding today&#39;s date</span></span></code></pre></div>
+<pre><code>## [1] &quot;Alabama.txt&quot;     &quot;Alaska.txt&quot;      &quot;Arizona.txt&quot;     &quot;Arkansas.txt&quot;   
+## [5] &quot;California.txt&quot;  &quot;Colorado.txt&quot;    &quot;Connecticut.txt&quot; &quot;Delaware.txt&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rev.filenames <span class="ot">=</span> <span class="fu">fAddDate</span>(filenames) <span class="co"># append today&#39;s date to the file names</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>rev.filenames</span></code></pre></div>
+<pre><code>##  [1] &quot;Alabama_07-Jul-2024.txt&quot;        &quot;Alaska_07-Jul-2024.txt&quot;        
+##  [3] &quot;Arizona_07-Jul-2024.txt&quot;        &quot;Arkansas_07-Jul-2024.txt&quot;      
+##  [5] &quot;California_07-Jul-2024.txt&quot;     &quot;Colorado_07-Jul-2024.txt&quot;      
+##  [7] &quot;Connecticut_07-Jul-2024.txt&quot;    &quot;Delaware_07-Jul-2024.txt&quot;      
+##  [9] &quot;Florida_07-Jul-2024.txt&quot;        &quot;Georgia_07-Jul-2024.txt&quot;       
+## [11] &quot;Hawaii_07-Jul-2024.txt&quot;         &quot;Idaho_07-Jul-2024.txt&quot;         
+## [13] &quot;Illinois_07-Jul-2024.txt&quot;       &quot;Indiana_07-Jul-2024.txt&quot;       
+## [15] &quot;Iowa_07-Jul-2024.txt&quot;           &quot;Kansas_07-Jul-2024.txt&quot;        
+## [17] &quot;Kentucky_07-Jul-2024.txt&quot;       &quot;Louisiana_07-Jul-2024.txt&quot;     
+## [19] &quot;Maine_07-Jul-2024.txt&quot;          &quot;Maryland_07-Jul-2024.txt&quot;      
+## [21] &quot;Massachusetts_07-Jul-2024.txt&quot;  &quot;Michigan_07-Jul-2024.txt&quot;      
+## [23] &quot;Minnesota_07-Jul-2024.txt&quot;      &quot;Mississippi_07-Jul-2024.txt&quot;   
+## [25] &quot;Missouri_07-Jul-2024.txt&quot;       &quot;Montana_07-Jul-2024.txt&quot;       
+## [27] &quot;Nebraska_07-Jul-2024.txt&quot;       &quot;Nevada_07-Jul-2024.txt&quot;        
+## [29] &quot;New Hampshire_07-Jul-2024.txt&quot;  &quot;New Jersey_07-Jul-2024.txt&quot;    
+## [31] &quot;New Mexico_07-Jul-2024.txt&quot;     &quot;New York_07-Jul-2024.txt&quot;      
+## [33] &quot;North Carolina_07-Jul-2024.txt&quot; &quot;North Dakota_07-Jul-2024.txt&quot;  
+## [35] &quot;Ohio_07-Jul-2024.txt&quot;           &quot;Oklahoma_07-Jul-2024.txt&quot;      
+## [37] &quot;Oregon_07-Jul-2024.txt&quot;         &quot;Pennsylvania_07-Jul-2024.txt&quot;  
+## [39] &quot;Rhode Island_07-Jul-2024.txt&quot;   &quot;South Carolina_07-Jul-2024.txt&quot;
+## [41] &quot;South Dakota_07-Jul-2024.txt&quot;   &quot;Tennessee_07-Jul-2024.txt&quot;     
+## [43] &quot;Texas_07-Jul-2024.txt&quot;          &quot;Utah_07-Jul-2024.txt&quot;          
+## [45] &quot;Vermont_07-Jul-2024.txt&quot;        &quot;Virginia_07-Jul-2024.txt&quot;      
+## [47] &quot;Washington_07-Jul-2024.txt&quot;     &quot;West Virginia_07-Jul-2024.txt&quot; 
+## [49] &quot;Wisconsin_07-Jul-2024.txt&quot;      &quot;Wyoming_07-Jul-2024.txt&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#...write further codes to use the file names to save new files.</span></span></code></pre></div>
+</div>
+<div id="list-of-other-cool-functions-to-use" class="section level2">
+<h2>List of other cool functions to use</h2>
+<pre><code>
+%nin%   Not in vector or array
+add.header  Addin snippet function to add header comment to a current opened file
+add.sect.comment    Addin snippet function to custom section comment
+add.snippet.clear   Snippet R function to clear console and set directory
+add_key Add index keys to a vector or data frame or list or matrix
+ai.duplicate    Prompt guided duplication of files
+archivedPkg Listing of all CRAN archived R packages
+as.boolean  Convert boolean values between formats
+bionic_txt  Generate a bionic text
+clean   Clear environment, clear console, set work directory and load files
+compHist    Compare histograms of two distributions
+data_pop    Remove last n rows or column or specified elements from a data frame like array_pop in PHP
+data_pop_filter Remove elements from a data matching filter
+data_push   Add data to another data like array_push in PHP
+data_rep    Duplicate a data rows or columns X times
+data_shuffle    Shuffle a data frame just like shuffle in PHP
+date1to3    Combine vectors to create Date, or split Date into vectors
+date3to1    Combine vectors to create Date, or split Date into vectors
+duplicate   Duplicate a file with global text replacement
+fAddDate    Append date to filename
+genRandImg  Download random images from the web
+geo.cv  Calculate geometric coefficient of variation, mean, or SD and round
+geo.mean    Calculate geometric coefficient of variation, mean, or SD and round
+geo.sd  Calculate geometric coefficient of variation, mean, or SD and round
+has.error   Check if a call or expression produces errors
+header.rmd  Snippet function to add header to a current Rmd opened file
+in.range    If number falls within a range of values and get closest values
+inc Increment vector by value
+init    Initialize new variables and objects
+insertInText    Shiny app function to insert string to current file in RStudio
+is.gamma    Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.image    Is file name extension(s) an image
+is.logistic Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.lognormal    Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.normal   Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.poisson  Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.uniform  Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+is.weibull  Check if a data fits a Normal or LogNormal or Uniform or Poisson or Gamma distribution
+libraryAll  Load specific R libraries and clear environment
+list_push   Add elements to a list like array_push in PHP
+list_shuffle    Shuffle a list object just like shuffle in PHP
+minus   Decrease vector by value
+mix.color   Mix or Blend two or more colors
+mix.cols.btw    Mix or Blend colors between two or more colors
+multiply    Multiple a vector of numeric values
+newSuperVar Create and use a super variable with unique capabilities
+not.data    Not a data
+not.duplicated  Not duplicated elements
+not.empty   Not empty
+not.environment Not an environment
+not.exists  Not exists
+not.image   File name extension(s) is Not an image
+not.integer Not an integer
+not.logical Not logical
+not.na  Not NA
+not.null    Not NULL
+not.numeric Not numeric
+not.vector  Not a vector
+number  Generate a random number (integer)
+pairDist    Calculate the distance of points from the center of a cluster
+plus    Increment vector by value
+randString  Generate a random string
+rcolorconst R Color Constant
+rDecomPkg   Check whether an R package has been decommissioned in CRAN
+read.csv.print  Read a CSV and preview first X rows and columns
+read.table.print    Read in a table and show first X rows and columns
+refresh Clear environment, clear console, set work directory and load files
+sample_by_column    Re-sample a dataset by column and return number of entry needed
+setOnce Set a variable only once
+sim.logistic    Generate logistic random values
+strsplit.bool   Split a string of values and return as boolean vector
+strsplit.num    Split a string of numbers and return as numeric vector
+summarize.envobj    Get all the environment objects and their sizes
+vector_pop  Remove last n elements or specified elements from a vector like array_pop in PHP
+vector_push Add elements to a vector like array_push in PHP
+vector_shuffle  Shuffle a vector just like shuffle in PHP
+yesNoBool   Convert Yes/No to Binary or Logical
+</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

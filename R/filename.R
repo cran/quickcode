@@ -26,17 +26,29 @@
 #' fAddDate("one_file_name_fileend.pdf")
 #'
 #' # Task 4
-#' fAddDate(c("path1/","path2/"),"filepre","filemid",c("fileend.png",".pdf"))
+#' fAddDate(c("path1/","path2/"),"file1-","filemid",c("fileend.png",".pdf"))
+#'
+#' # Task 5
+#' data("USArrests")
+#' USArrests$fn = paste0(row.names(USArrests), ".txt")
+#' head(fAddDate(USArrests$fn),10)
+#'
+#' # Task 6: format date - month.day.year
+#' fAddDate("sample_file_name.pdf", format = "%B.%d.%YYYY")
+#'
+#' # Task 7: format date - year_month
+#' fAddDate("sample_file_name.pdf", format = "%YYYY_%m")
 #'
 #'
 #' @export
 
 fAddDate <- function(...,format = "%d-%b-%Y"){
+  stopifnot(...length()>0)
   combine <- paste0(...)
-  extt <- tools::file_ext(combine)
-  for(ext in extt)
-    combine <- gsub(paste0("\\.",ext,"$"),
-                    paste0("_",format(Sys.time(), format),
-                    paste0(".",ext)),combine)
-  combine
+  apply(data.frame(f=combine,e=tools::file_ext(combine)), 1, function(e){
+    gsub(paste0("\\.",e['e'],"$"),
+         paste0("_",format(Sys.time(), format),
+                paste0(".",e['e'])),e['f'])
+  })
 }
+

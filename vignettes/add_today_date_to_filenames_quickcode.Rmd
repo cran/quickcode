@@ -1,34 +1,45 @@
 ---
-title: "NOT functions, is.log, is.poisson, is.weibull, date3to1, genRandImg, vector_shuffle, data_pop,  and init function amongst many great new functions in the quickcode R package"
-author: "Obinna (OBI) Obianom, Brice Richard"
+title: "Easily add today's date to filenames in R using quickcode package"
+author: "Obinna (OBI) Obianom"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{NOT functions, is.log, is.poisson, is.weibull, date3to1, genRandImg, vector_shuffle, data_pop,  and init function amongst many great new functions in the quickcode R package}
+  %\VignetteIndexEntry{Easily add today's date to filenames in R using quickcode package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r}
+# quickcode::clean(clearPkgs = TRUE) #clear environment and clear previous package
+quickcode::libraryAll(datasets) #load in-built dataset
 ```
 
+## fAddDate function
 
-### A compilation of NOT functions + some useful functions to simply R programming, keep the console neat, and save memory usage 
+#### In R, data often gets saved to files for future use or subsequent processes. However, without a version control system in place, ensuring the consistency and reproducibility of saved data can pose challenges, particularly when scripts evolve over time. The "fAddDate" function addresses such concerns by automatically appending the current date to the file name, mitigating the risk of data loss and enhancing reproducibility. By simplifying the process with just a single line of code, users no longer need to manually update the date of each run, thereby streamlining workflow efficiency. Reproducibility in programming is crucial for maintaining the integrity of analyses and fostering trust in research outcomes. Ensuring that results can be consistently replicated not only enhances transparency but also facilitates collaboration and builds confidence in the reliability of findings. Therefore, by incorporating automated date stamping, this function not only safeguards against data inconsistency but also reinforces the fundamental principles of reproducible research in R programming.
 
-## Install
+![](https://quickcode.obi.obianom.com/fadddate.png)
+
+## Usage
+
+Let's load the USArrests data. And let's assume that we want to save data to the system using the content of the row names as our file names.
+
+```{r}
+data("USArrests")
+
+filenames = paste0(row.names(USArrests), ".txt")
+
+head(filenames,8) # before adding today's date
+
+rev.filenames = fAddDate(filenames) # append today's date to the file names
+
+rev.filenames
+
+#...write further codes to use the file names to save new files.
 
 ```
-devtools::install_github("oobianom/quickcode")
 
-install.packages("quickcode") # when published
-
-```
-
-## List of many cool functions to use
+## List of other cool functions to use
 
 ```
 
@@ -111,207 +122,3 @@ vector_shuffle	Shuffle a vector just like shuffle in PHP
 yesNoBool	Convert Yes/No to Binary or Logical
 
 ```
-
-## Let me show you a few R Examples
-
-***
-
-```
-#initialize one or more variables
-
-print(g) # Error: object 'g' not found
-
-init(g,h,i,o)
-print(g) # g = NULL
-print(h) # h = NULL
-
-init(r,y,u,b,value = 5)
-print(r) # r = 5
-print(b) # b = 5
-print(z) # Error: object 'z' not found
-
-```
-
-***
-
-```
-#add keys to a vector content for use in downstream processes
-
-ver1 <- c("Test 1","Test 2","Test 3")
-add_key(ver1)
-
-for(i in ver1){
-message(sprintf("%s is the key for this %s", i$key, i$value))
-}
-
-```
-
-***
-
-```
-
-#check if the entry is not integer
-
-not.integer(45) #returns TRUE
-not.integer(45.) #returns TRUE
-not.integer(45L) #returns FALSE
-
-not.null(45L) #returns TRUE
-not.null(h<-NULL) #returns FALSE
-
-
-```
-
-***
-
-```
-
-#clear R environment, set directory and load data
-#note: the code below also automatically loads the quickcode library so that all other functions within package can be used easily
-
-
-quickcode::refresh()
-quickcode::clean()
-
-#or combine with setwd and source and load
-
-quickcode::clean(
-  setwd = "/wd/",
-  source = c(
-  "file.R",
-  "file2.R"
-  ),
-  load = c(
-  "data.RData",
-  "data2.RData"
-  )
-)
-
-
-```
-
-***
-
-```
-
-#shorthand for not in vector
-
-p1 <- 4
-p2 <- c(1:10)
-
-p1 %nin% p2
-
-
-
-```
-
-***
-
-```
-
-#add to a vector in one code
-
-p1 <- c(6,7,8)
-p2 <- c(1,2,3)
-
-vector_push(p1,p2)
-
-print(p1)
-
-
-```
-
-***
-
-```
-
-#add to a data frame in one code
-
-p1 <- data.frame(ID=1:10,ID2=1:10)
-p2 <- data.frame(ID=11:20,ID2=21:30)
-
-data_push(p1,p2,"rows")
-
-print(p1)
-
-```
-
-***
-
-```
-
-#remove from a vector in one code
-
-p1 <- c(6,7,8,1,2,3)
-
-vector_pop(p1)
-
-print(p1)
-
-
-```
-
-***
-
-```
-
-
-
-#remove from a data frame in one code
-
-p1 <- data.frame(ID=1:10,ID2=1:10,CD=11:20,BD=21:30)
-
-data_pop(p1) #remove last row
-
-print(p1)
-
-data_pop(p1,5) #remove last 5 rows
-
-print(p1)
-
-```
-
-***
-
-```
-
-
-#remove columns from a data frame in one code
-
-p1 <- data.frame(ID=1:10,ID2=1:10,ID4=1:10,CD=11:20,BD=21:30)
-
-data_pop(p1,which = "cols") #remove last column
-
-print(p1)
-
-data_pop(p1,2,which = "cols") #remove last 2 columns
-
-print(p1)
-
-data_pop(p1,1,which = "cols") #remove last 1 column and vectorise
-
-print(p1)
-
-```
-
-***
-
-```
-#load libraries
-
-quickcode::libraryAll(
-  dplyr,
-  r2resize,
-  ggplot2
-)
-
-
-```
-
-***
-
-```
-```
-
-
-Check out some examples at <u>quickcode.obi.obianom.com</u>
