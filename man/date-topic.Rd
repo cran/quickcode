@@ -7,7 +7,7 @@
 \alias{is.leap}
 \title{Convert Dates into Numeric Week Counts}
 \usage{
-getWeekSeq(start_date, end_date, in.format = "\%m/\%d/\%y")
+getWeekSeq(start_date, end_date, dates, in.format = "\%m/\%d/\%y")
 
 is.Date(x)
 
@@ -19,6 +19,9 @@ is.leap(yyyy)
 \item{start_date}{A scaler of class Date (if this argument is populated, the date arg must be empty)}
 
 \item{end_date}{A scaler of class Date; must be later than the start_date (if this argument is populated, the date arg must be empty)}
+
+\item{dates}{vector of dates that need not be sequential but that reference values of class Date;
+Note that if this argument is populated, the start_date and end_date arguments must be empty}
 
 \item{in.format}{date input format}
 
@@ -33,6 +36,38 @@ data frame of the dates along with their corresponding week
 Convert the range of date to number of weeks
 }
 \examples{
+# simple example with start and end date
 getWeekSeq(start_date="12/29/25",end_date="1/8/26")
+
+# enter specific dates instead
+# specify format
+getWeekSeq(
+dates = c(
+  '2025-12-29',
+  '2025-12-30',
+  '2025-12-31',
+  '2026-01-01',
+  '2026-01-04',
+  '2026-01-05',
+  '2026-01-06',
+  '2026-01-07',
+  '2026-01-08'),
+  in.format = "\%Y-\%m-\%d"
+)
+
+getWeekSeq(
+dates = c(
+  '12/29/25',
+  '12/30/25',
+  '12/31/25',
+  '01/01/26',
+  '01/02/26',
+  '01/03/26',
+  '01/06/26',
+  '01/07/26',
+  '01/08/26'
+  ),
+  in.format = "\%m/\%d/\%y"
+)
 
 }
