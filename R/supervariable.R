@@ -85,7 +85,7 @@
 #' # search if it contains the numeric value 21
 #' newSuperVar(lon2, value = mtcars) # declares lon2
 #' lon2 # view content of lon2
-#' lon2.contains("21.0") # WRONG - since df.col is not specific,
+#' lon2.contains("21.0") # WRONG - since df.col is not specified,
 #' # only the first column is search for the character "21.0"
 #' lon2.contains("21.0", df.col = "mpg") # WRONG - searches mpg column
 #' # for the character "21.0"
@@ -146,7 +146,7 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
   }
 
   # FUN
-  els <- c("", ".rm", ".set", ".contains", ".round", ".signif", ".class",".head",".tail")
+  els <- c("", ".rm", ".set", ".contains", ".round", ".signif", ".class",".head",".tail",".push",".pop")
 
   # remove
   rmv <- function() {
@@ -198,14 +198,36 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
     stopifnot(inherits(.l,"data.frame")) # data must be a data frame
     print(.l[1:n,])
   }
-  # head
+  # tail
   taill <- function(n = 10) {
     .l = {get(as.character(i), envir = .pos80cbca8022ece6174797e10bb8aebf18)}
     stopifnot(inherits(.l,"data.frame")) # data must be a data frame
     print(.l[(nrow(.l)-n+1):nrow(.l),])
   }
 
+  # push
+  pushl <- function(add, .df = c("row", "col")) {
+    .df <- match.arg(.df)
+    .l = {get(as.character(i), envir = .pos80cbca8022ece6174797e10bb8aebf18)}
+    if(inherits(.l,"data.frame")){
+      if(.df == "row").l <- rbind(.l, add) else .l <- cbind(.l, add)
+    }
+    else .l <- c(.l, add)
+    .l
+  }
 
+  # pop
+  popl <- function(n = 10, .df = c("row", "col")) {
+    .df <- match.arg(.df)
+    .l = {get(as.character(i), envir = .pos80cbca8022ece6174797e10bb8aebf18)}
+    if(inherits(.l,"data.frame")){
+      if(.df == "row").l <- .l[1:{nrow(.l)-n},] else .l <- .l[,1:{ncol(.l)-n}]
+    }
+    else{
+      .l <- .l[-{length(.l):{length(.l) - {n-1}}}]
+    }
+    .l
+  }
 
   # significant figures
   sgif <- function(digits = 0) {
@@ -255,13 +277,15 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
     assign(paste0(i, els[4]), .join(cntsa), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     assign(paste0(i, els[5]), .join(rldd), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     assign(paste0(i, els[6]), .join(sgif), envir = .pos80cbca8022ece6174797e10bb8aebf18)
+    assign(paste0(i, els[10]), .join(pushl), envir = .pos80cbca8022ece6174797e10bb8aebf18)
+    assign(paste0(i, els[11]), .join(popl), envir = .pos80cbca8022ece6174797e10bb8aebf18)
 
     if(inherits(value,"data.frame")){
       #if data frame, add the head and tail functions
       assign(paste0(i, els[8]), .join(headd), envir = .pos80cbca8022ece6174797e10bb8aebf18)
       assign(paste0(i, els[9]), .join(taill), envir = .pos80cbca8022ece6174797e10bb8aebf18)
     }else{
-      els <- els %-% c(".head",".tail")
+      els <- els[els %nin% c(".head",".tail")]
     }
 
     if(editn1 != 0)
@@ -275,12 +299,12 @@ newSuperVar <- function(variable, value = 0L, lock = FALSE, editn = NULL) {
 
 
 # will be exported in future release
-`%-%` <- function(item1,item2,return=FALSE){
-  if(!all(class(item1) == class(item2))) stop("Both variables must have the same class")
-  res <- "The variables have to be either two lists or two character vectors"
-  if(inherits(item1,"character"))
-  res <- item1[item1%nin%item2]
-  if(inherits(item1,"list"))
-  res <- mapply('-', item1, item2, SIMPLIFY = FALSE)
-  res
-}
+# `%-%` <- function(item1,item2,return=FALSE){
+#   if(!all(class(item1) == class(item2))) stop("Both variables must have the same class")
+#   res <- "The variables have to be either two lists or two character vectors"
+#   if(inherits(item1,"character"))
+#   res <- item1[item1%nin%item2]
+#   if(inherits(item1,"list"))
+#   res <- mapply('-', item1, item2, SIMPLIFY = FALSE)
+#   res
+# }

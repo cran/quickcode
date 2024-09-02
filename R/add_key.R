@@ -3,6 +3,8 @@
 #' Index a vector or lists and convert to a list of objects
 #'
 #' @param vector vector or data frame to transform
+#' @param key variable name for keys
+#' @param value variable name for values
 #' @return a transformed list containing keys along with vector values
 #' @details
 #' This function takes a vector and turns it into a list containing 'key' and 'value' for each vector.
@@ -15,8 +17,8 @@
 #' vector.
 #'
 #' @note
-#' add_key - resaves the keys \cr\cr
-#' indexed - return the keys
+#' add_key - resaves the keys and value pairs to original variable\cr\cr
+#' indexed - return the keys and value pairs
 #'
 #' @section Use case:
 #' Efficient for loops and for tracking various steps through a vector contents
@@ -67,7 +69,6 @@ add_key <- function(vector){
 
 
 #' @rdname addkey
-#' @param . vector or data frame to transform
 #' @details
 #' This function takes a vector and turns it into a list containing 'key' and 'value' for each vector.
 #' This allows the output to be used in loops such as for loops or lapply or other functions to track
@@ -96,7 +97,15 @@ add_key <- function(vector){
 #'   message(sprintf("%s is the key for this %s", i$key, i$value))
 #' }
 #'
-#' #ex4 use keyed ver1 in lapply loop
+#' #ex4 use keyed ver1 in for loop
+#' #specify name for key and value
+#' for(i in indexed(ver1,k,v)){
+#'   message(
+#'   sprintf("%s is the new key for this value %s",
+#'   i$k, i$v))
+#' }
+#'
+#' #ex5 use keyed ver1 in lapply loop
 #' xl1 <- lapply(indexed(ver1),function(i){
 #'   message(sprintf("lapply - %s is the key for this %s", i$key, i$value))
 #' })
@@ -104,13 +113,16 @@ add_key <- function(vector){
 #'
 #' @export
 #'
-indexed <- function(.){
+indexed <- function(vector,key = key,value = value){
   #create list and add keys
   .. = list()
-  iky = 1
-  for(i in .){
-    ..[[length(..)+1]] <- list(key = iky, value = i)
-    inc(iky)
+  count = 1
+  for(i in vector){
+    num <- length(..)+1
+    ..[[num]] <- list()
+    ..[[num]][[as.character(substitute(key))]] = count
+    ..[[num]][[as.character(substitute(value))]] = i
+    inc(count) #increment count
   }
   ..
 }
