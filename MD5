@@ -1,7 +1,7 @@
-f2f6b7168a310b0ec21540aa409c9b7b *DESCRIPTION
+3e3ad9f2b9904530c2fce7a844835d76 *DESCRIPTION
 bbc5f3e9feb7445907b74f2b015a7814 *LICENSE
-ff944e4c0e0c1a6bd8edd70a77750f06 *NAMESPACE
-0be700de3b98e2989d16a470133d72a4 *NEWS.md
+6fe5de6853a5f6be20929b3857d7a21b *NAMESPACE
+8f8e393b2af3d7c66d63c99f91953a6c *NEWS.md
 7d672e071099f5c36402b24dbf689278 *R/0.7_combo_func1.R
 aa69e0c8cad1151e3adedbd0630f0004 *R/0.7_equations2.R
 d83a6abd41488a9b245f373c9f8cda24 *R/OR.R
@@ -12,7 +12,7 @@ c6f1d66ae7115daa4e7342a470b07f7d *R/add_key.R
 14332d0b6d78c4b9fa2fbdfb99ad53e4 *R/archivedR.R
 f2794709f2d19303d8e68a02ca530a9a *R/bionic.R
 8e3083a43fd7a921dfdcad872a6a3193 *R/bool.R
-d74b262d2218fa7ea91193d888e0093a *R/clean.R
+31c66f56c8f431c8ba247fe292b129c2 *R/clean.R
 c29c3606ea63dfa5c68df7c935553907 *R/color_compHist.R
 fa8125fb21d373b8f947febd8d5c2154 *R/constants.R
 fd24598503e191b18d784807836bd760 *R/cybersec.R
@@ -30,7 +30,7 @@ bb27e834bd042fa70fa63ad3c6e53baa *R/data_shuffle.R
 8730833805a1b2e3e815002c49244363 *R/envobj.R
 92e07fa2a3b23fc990de792ae6570354 *R/equations1.R
 b9e1419707be91ed62895070fdb2ccc9 *R/filename.R
-a9386c73f55699ce4cfa7e9f32f54e78 *R/func_chain.R
+63e255f93de2a1238f22fa4e7e015011 *R/func_chain.R
 c757fe97595d195a430cfa220027c664 *R/getDate.R
 85115a67addd970f67646423c3b4d036 *R/getdist.R
 0b8b19480298fa9c52994fbd30236640 *R/github.R
@@ -61,8 +61,9 @@ e93856c4c2fdcf0ffbc6b4a2366b20c2 *R/not.numeric.R
 fe2e3caa0b3d814dd8941865c8bd3891 *R/not.vector.R
 7f4d82a9ee38760785395e176dfd1a52 *R/number.R
 c5c57efbe5b74c9ad685dd92a2137c88 *R/once.R
+b168e6fcb31b4fb54c512405da5d0e89 *R/pkg_by.R
 bb56bd9803fd7e921a1ce420d93393ad *R/quickcode-package.R
-19fee9c3e69b9217450eb3ce50abc466 *R/randomImage.R
+164e552857b24920d987c928867d4bdb *R/randomImage.R
 72771807a4e176b6956fdcda429de503 *R/rcolorconst.R
 6d551ed30c1975c15652107d47f83418 *R/sample_by_column.R
 7f92edfc45c31ba12040edcf4ecbf8a4 *R/seq_range.R
@@ -80,16 +81,16 @@ cbb2fa6a5c48cb7445a72753288755b1 *R/zsore.R
 9fe63807a54d7e45b5811aa3125fcc0d *build/vignette.rds
 285a472a17b4921eef97ef581e71fb42 *inst/doc/add_today_date_to_filenames_quickcode.R
 3a2f7c87fd6c22932ff10511ed406abc *inst/doc/add_today_date_to_filenames_quickcode.Rmd
-ec05ea6356dc79e22792c6c8eab0de9e *inst/doc/add_today_date_to_filenames_quickcode.html
+09205a53369a426012a856bb71ec3cc0 *inst/doc/add_today_date_to_filenames_quickcode.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/nullish_coalescing_operator_r.R
 7a19ee61cdaca90cef357774df20ef95 *inst/doc/nullish_coalescing_operator_r.Rmd
-584c46805322906958b643d7146a273e *inst/doc/nullish_coalescing_operator_r.html
+ee4d05325a6a749623e248f77b5d1f51 *inst/doc/nullish_coalescing_operator_r.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/quickcode_r_introduction.R
 a31a4e8b97c1d38623c063a5e7bb1828 *inst/doc/quickcode_r_introduction.Rmd
-5f6a5196faa4e18a7892f91db80f156b *inst/doc/quickcode_r_introduction.html
+6b3ef7377dbe99b2313b2cd73e929cb8 *inst/doc/quickcode_r_introduction.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/track_function_usage_r.R
 84143617d6a224201057741bc8fa05fd *inst/doc/track_function_usage_r.Rmd
-23db0da35dcf0d26a29deb99a9655ac8 *inst/doc/track_function_usage_r.html
+d60e992a803eac765bf32411ec0a3bb5 *inst/doc/track_function_usage_r.html
 d950860345ea76904a1ccb186f0a1214 *inst/quickcode.png
 e6198154115c82b86857d93c93a55323 *inst/rstudio/addins.dcf
 a298f6e62dcd599fa3eb5ec8cd08d858 *inst/samples/downloadImages.Rmd
@@ -119,6 +120,7 @@ e7ece7074ed063c6824f10e8a66fdc3e *man/distribution_check.Rd
 a28a7d28fa501b3651d79c16184a7b04 *man/empty.Rd
 3be530fdd62b5c22859af2355e36d2a2 *man/errorout.Rd
 a836704fdc5bd97c0bc225f437639c18 *man/fAddDate.Rd
+141b7e1f873662a3d84aa0a2fe4ed448 *man/find_packages.Rd
 d1b6e08f12b408c4012f64ecd5e9a4a6 *man/genRandImg.Rd
 2a9598cd4bc8167cc7928b92bd042fc9 *man/geostats.Rd
 b52b678cc71a57858def1b128e3188e9 *man/getDate.Rd
@@ -166,7 +168,7 @@ f475a798de9f0304b65d039292db3577 *man/orsign.Rd
 a8752f1292813a6fd3a8c15b43d06426 *man/refresh.Rd
 859d3197163b55cae75f9daaa3ee7f29 *man/sample_by_column.Rd
 7cdad2d1d2eb4a025d9827899e187e55 *man/setOnce.Rd
-013429dd9d6aecb6553056f63b5b451d *man/simplechaining.Rd
+1f82107f507030c95e4126b72c5b1795 *man/simplechaining.Rd
 854f09d2b4796273a723e73f62e1f605 *man/sort_length.Rd
 95bc5847d8492410125c0ceb4171d0e5 *man/strsplit.bool.Rd
 825886486df25d9384e9446179157b09 *man/strsplit.num.Rd
