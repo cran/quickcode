@@ -9,8 +9,13 @@
 #' @return shuffled vector of items store to the vector name
 #'
 #' @examples
-#' v1<-c(3,45,23,3,2,4,1)
 #'
+#' #basic example
+#' vector_shuffle(c(3,45,23,3,2,4,1))
+#'
+#'
+#' #using objects
+#' v1<-c(3,45,23,3,2,4,1)
 #'
 #' #demonstrate vector_shuffle
 #' vector_shuffle(v1)
@@ -36,14 +41,15 @@
 #'
 
 vector_shuffle <- function(., replace = FALSE, prob = NULL, seed = NULL) {
-  if(not.vector(.)) stop("The first element must be a vector")
+  if(not.vector(.)) stop("The first argument must be a vector")
   .. <- substitute(.)
+  if(not.null(seed))set.seed(seed)
+  if (typeof(..) == "language")
+    return(sample(., replace = replace, prob = prob))
 
   if (typeof(..) != "symbol") stop(paste0(.., " must be an object."))
 
   val <- get(as.character(..), envir = parent.frame())
-
-  if(not.null(seed))set.seed(seed)
 
   assign(as.character(..), sample(val, length(val), replace = replace, prob = prob), envir = parent.frame())
 }
