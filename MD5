@@ -1,7 +1,7 @@
-2e0ea5ced9d1215c7e42f36dbb6a480d *DESCRIPTION
+cd7c25ed9988fc8e071245c008607c45 *DESCRIPTION
 bbc5f3e9feb7445907b74f2b015a7814 *LICENSE
-9e443d90a9d247c5f49dc70526199b47 *NAMESPACE
-a77387ab79f756cc44b254c38b57a797 *NEWS.md
+3303408c123773be44be9844e1e8fdef *NAMESPACE
+5b1771d87287bf7ce0f4f200305a42bb *NEWS.md
 7d672e071099f5c36402b24dbf689278 *R/0.7_combo_func1.R
 e54c77408dc85a87c345104558b6ae2a *R/OR.R
 d9b133d116d56cd5d32c145848fbba07 *R/aaa.R
@@ -11,7 +11,7 @@ c6f1d66ae7115daa4e7342a470b07f7d *R/add_key.R
 14332d0b6d78c4b9fa2fbdfb99ad53e4 *R/archivedR.R
 f2794709f2d19303d8e68a02ca530a9a *R/bionic.R
 8e3083a43fd7a921dfdcad872a6a3193 *R/bool.R
-31c66f56c8f431c8ba247fe292b129c2 *R/clean.R
+b2ea92840aeb4fe59560f57636e9392d *R/clean.R
 c29c3606ea63dfa5c68df7c935553907 *R/color_compHist.R
 fa8125fb21d373b8f947febd8d5c2154 *R/constants.R
 fd24598503e191b18d784807836bd760 *R/cybersec.R
@@ -29,7 +29,7 @@ ca0296baaee65447afdccbf02ec89370 *R/data_shuffle.R
 8730833805a1b2e3e815002c49244363 *R/envobj.R
 92e07fa2a3b23fc990de792ae6570354 *R/equations1.R
 b9e1419707be91ed62895070fdb2ccc9 *R/filename.R
-63e255f93de2a1238f22fa4e7e015011 *R/func_chain.R
+6099df19d8d228075e6d495fdd18d128 *R/func_chain.R
 c757fe97595d195a430cfa220027c664 *R/getDate.R
 85115a67addd970f67646423c3b4d036 *R/getdist.R
 0b8b19480298fa9c52994fbd30236640 *R/github.R
@@ -72,7 +72,7 @@ e553e1a63dc25fc98394a28aee27451d *R/sort.R
 e145b64cb443a0158989451917da12ac *R/strings.R
 18cfcba1f3a0b2b64cc931e42f77b84b *R/supervariable.R
 893210466385f5fc4fa2c496e3993af7 *R/switch.R
-73256a077d110c5b64bf02ab739df52f *R/track.R
+76d531588ad5fffa26c1c544c44e3c90 *R/track.R
 405a34dce2ff3f43760899545002e101 *R/uniquelen.R
 aa05e1da29da04241248286723c3051b *R/vector_pop.R
 318cdf73bb1319f1a43b301410052ed5 *R/vector_push.R
@@ -82,16 +82,16 @@ cbb2fa6a5c48cb7445a72753288755b1 *R/zsore.R
 9fe63807a54d7e45b5811aa3125fcc0d *build/vignette.rds
 285a472a17b4921eef97ef581e71fb42 *inst/doc/add_today_date_to_filenames_quickcode.R
 3a2f7c87fd6c22932ff10511ed406abc *inst/doc/add_today_date_to_filenames_quickcode.Rmd
-6c7d3129f64e1409bbe237f653a40609 *inst/doc/add_today_date_to_filenames_quickcode.html
+417b55d0eb1ab352f92e7e120376aacd *inst/doc/add_today_date_to_filenames_quickcode.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/nullish_coalescing_operator_r.R
 7a19ee61cdaca90cef357774df20ef95 *inst/doc/nullish_coalescing_operator_r.Rmd
-86e1d2e70893876e16a7805d78c9f2a8 *inst/doc/nullish_coalescing_operator_r.html
+5b1e12ad433809fd56169b693ec39f33 *inst/doc/nullish_coalescing_operator_r.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/quickcode_r_introduction.R
 a31a4e8b97c1d38623c063a5e7bb1828 *inst/doc/quickcode_r_introduction.Rmd
-7bc5dcc1dc14fc8456e1623361d34d9d *inst/doc/quickcode_r_introduction.html
+dc454568752286e7abea0b84a3811617 *inst/doc/quickcode_r_introduction.html
 ea8eab93de05207476b4c5f91642b478 *inst/doc/track_function_usage_r.R
 84143617d6a224201057741bc8fa05fd *inst/doc/track_function_usage_r.Rmd
-f1b36635a5abf61d3b92c9040bf305d5 *inst/doc/track_function_usage_r.html
+865121648c0887604b46c31514c40a37 *inst/doc/track_function_usage_r.html
 d950860345ea76904a1ccb186f0a1214 *inst/quickcode.png
 e6198154115c82b86857d93c93a55323 *inst/rstudio/addins.dcf
 a298f6e62dcd599fa3eb5ec8cd08d858 *inst/samples/downloadImages.Rmd
@@ -103,7 +103,7 @@ a747779607188161e3797889045733b0 *man/ai.duplicate.Rd
 d6524f4a2e99329683987f8dfdbb138d *man/archivedPkg.Rd
 299db9c5c5a9c6d89a7a3b717937002f *man/as.boolean.Rd
 14f5f6fb7f71562653df35ecf15c04d4 *man/bionic_txt.Rd
-9411c1cbabb19db9502ba0aeef78ed24 *man/clean.Rd
+9411c1cbabb19db9502ba0aeef78ed24 *man/clearenvironment.Rd
 7516f423f7fd2267891b0c43d483ca41 *man/comments.Rd
 3f04a4988324cefb002145d7e3577b84 *man/compHist.Rd
 3997323aded49d4dbb76355641d5808a *man/const.Rd
@@ -133,6 +133,7 @@ e6f832bf15132c4e1e36b6d1c2c9c491 *man/in.range.Rd
 12690e134c75e5ae7c0f5916da8e3b24 *man/init.Rd
 3c1e15fc4818632c360ad263e2a17fcb *man/insertInText.Rd
 0340834954afb2bae91a33fde2cd03df *man/is.image.Rd
+32f3bbe5466cc5e7da675b71eb6349fe *man/lastwd.Rd
 36f39e837f18d9712ecdd32c22fba2ce *man/libraryAll.Rd
 e0c42abbec2460c285b12acc3d9ddd10 *man/list_push.Rd
 85789d4e8be84c2709854bd7bad5e982 *man/list_shuffle.Rd
@@ -171,6 +172,7 @@ a8752f1292813a6fd3a8c15b43d06426 *man/refresh.Rd
 859d3197163b55cae75f9daaa3ee7f29 *man/sample_by_column.Rd
 7cdad2d1d2eb4a025d9827899e187e55 *man/setOnce.Rd
 1f82107f507030c95e4126b72c5b1795 *man/simplechaining.Rd
+82623166c4466114eba1193ce9f3cc2b *man/simplechaining2.Rd
 854f09d2b4796273a723e73f62e1f605 *man/sort_length.Rd
 95bc5847d8492410125c0ceb4171d0e5 *man/strsplit.bool.Rd
 825886486df25d9384e9446179157b09 *man/strsplit.num.Rd
