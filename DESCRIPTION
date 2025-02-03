@@ -1,7 +1,7 @@
 Package: quickcode
 Type: Package
 Title: Quick and Essential 'R' Tricks for Better Scripts
-Version: 1.0.4
+Version: 1.0.5
 Authors@R: c(
     person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")),
     person("Brice", "Richard", email = "wem3mew@msn.com", role = "aut")
@@ -22,8 +22,8 @@ LazyData: false
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-01-14 04:49:55 UTC; in198
+Packaged: 2025-02-03 03:39:29 UTC; in198
 Author: Obinna Obianom [aut, cre],
   Brice Richard [aut]
 Repository: CRAN
-Date/Publication: 2025-01-14 05:10:01 UTC
+Date/Publication: 2025-02-03 06:00:02 UTC
