@@ -1,3 +1,9 @@
+# quickcode 1.0.6
+
+- [x] trim.file(), detect_outlier() and some new functions
+- [x] Edit to README and help documentation
+
+
 # quickcode 1.0.5
 
 - [x] Minor updates to functions and examples

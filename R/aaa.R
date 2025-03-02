@@ -1,5 +1,8 @@
 #INTERNAL FUNCTIONS and VARIABLES
 #' @importFrom utils adist
+#' @importFrom grDevices rainbow
+#' @importFrom graphics abline axis boxplot legend lines par points polygon rug
+#' @importFrom stats approx density mad median quantile
 utils::globalVariables(c("...dMywhole_", "..dd..", "..mm..", "..yyyy..","Function","size.bytes"))
 
 # fetch my environment
@@ -20,13 +23,6 @@ check_date_format <- function(date){
   if(as.numeric(splitdate[3]) > 31 | as.numeric(splitdate[3]) < 1) stop("Day format must be between 01 and 31")
   invisible(date)
 }
-
-
-# Random image downloader categories
-imageCategories <- c("3D", "animals", "architecture", "backgrounds", "beauty", "experimental",
-          "fashion", "film", "food", "interior", "nature", "people", "renders",
-          "school", "sports", "travel", "unsplash", "wallpapers")
-
 
 # erase
 (function()eval(parse(text=paste0(letters[3],'at','("\\','014")')), envir=.GlobalEnv)) -> erase
