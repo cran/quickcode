@@ -44,6 +44,7 @@
 #'
 #' @export
 or <- function(test,alternative){
+  error.out(test, return(alternative))
   res <- test
   if(!length(res)) return(alternative)
   if(all(is.null(res)|is.na(res) | is.nan(res) | !not.empty(res)))
