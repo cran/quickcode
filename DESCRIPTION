@@ -1,7 +1,7 @@
 Package: quickcode
 Type: Package
 Title: Quick and Essential 'R' Tricks for Better Scripts
-Version: 1.0.7
+Version: 1.0.8
 Authors@R: c(
     person("Obinna", "Obianom", email = "idonshayo@gmail.com", role = c("aut", "cre")),
     person("Brice", "Richard", email = "wem3mew@msn.com", role = "aut")
@@ -12,8 +12,8 @@ License: MIT + file LICENSE
 URL: https://quickcode.rpkg.net
 BugReports: https://github.com/oobianom/quickcode/issues
 Depends: R (> 3.6)
-Imports: utils, grDevices, stats, rstudioapi, tools, Polychrome,
-        fitdistrplus
+Imports: utils, grDevices, stats, rstudioapi, tools, Polychrome (>=
+        1.5.1), fitdistrplus
 Suggests: rmarkdown, knitr, qpdf, testthat
 Encoding: UTF-8
 VignetteBuilder: knitr
@@ -22,8 +22,8 @@ LazyData: false
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-04-09 16:30:47 UTC; in198
+Packaged: 2025-05-15 23:22:38 UTC; in198
 Author: Obinna Obianom [aut, cre],
   Brice Richard [aut]
 Repository: CRAN
-Date/Publication: 2025-04-09 22:30:02 UTC
+Date/Publication: 2025-05-15 23:40:02 UTC

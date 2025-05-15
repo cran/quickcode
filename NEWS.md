@@ -1,3 +1,13 @@
+# quickcode 1.0.8
+
+- [x] create_shape()
+- [x] updated recommendation for Polychrome version (use 1.5.1)
+
+# quickcode 1.0.7
+
+- [x] Bug fixes
+
+
 # quickcode 1.0.6
 
 - [x] trim.file(), detect_outlier() and some new functions
